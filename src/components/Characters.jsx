@@ -5,7 +5,6 @@ import CardCharacter from './CardCharacter'
 import "./styles/Characters.css"
 
 export default function Characters({ characters, loading, results, end }) {
-    console.log(characters)
     return (
         <Fragment>
             <div className="characters__container">
