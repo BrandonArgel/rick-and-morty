@@ -22,7 +22,6 @@ function useSearchCharacters(characters) {
 		} else {
 			setFilterCharacters(result);
 			setResults(false);
-			console.log("No results");
 		}
 	}, [characters, query]);
 
