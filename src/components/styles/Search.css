@@ -1,0 +1,68 @@
+.search__container {
+    padding: 20px 10px;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 3;
+}
+
+.search__bar {
+    align-items: center;
+    background-color: #fff;
+    border-radius: 18px;
+    box-shadow: 0 0 10px 0 rgba(134, 255, 75, 1), inset 2px 0 8px 2px rgba(0, 0, 0, 0.75);
+    display: flex;
+    margin: 0 auto;
+    max-width: 700px;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+}
+
+.search__bar:hover {
+    box-shadow: 0 0 10px 0 rgba(134, 255, 75, 1), inset 2px 0 8px 2px rgba(0, 0, 0, 0.5);
+}
+
+.search__bar:focus-within {
+    animation: search__bar__animation 2s ease-in-out infinite;
+}
+
+.search__bar label {
+    height: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.search__bar label img {
+    height: 20px;
+    padding: 0 20px;
+}
+
+.search__bar input {
+    border: none;
+    background-color: transparent;
+    height: 100%;
+    padding: 10px 20px;
+    width: 100%;
+}
+
+@keyframes search__bar__animation {
+    0% {
+        box-shadow: 1px 0 10px 3px rgba(134, 255, 75, 1), inset 2px 0 8px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    25% {
+        box-shadow: 0 1px 10px 3px rgba(134, 255, 75, 1), inset 2px 0 8px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    50% {
+        box-shadow: -1px 0 10px 3px rgba(134, 255, 75, 1), inset 2px 0 8px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    75% {
+        box-shadow: 0 -1px 10px 3px rgba(134, 255, 75, 1), inset 2px 0 8px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    100% {
+        box-shadow: 1px 0 10px 3px rgba(134, 255, 75, 1), inset 2px 0 8px 2px rgba(0, 0, 0, 0.5);
+    }
+}

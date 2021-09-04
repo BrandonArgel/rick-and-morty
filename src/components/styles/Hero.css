@@ -1,0 +1,22 @@
+.hero__img {
+    display: block;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 800px;
+    width: 100%;
+    animation: logo__animation 3s ease-in-out infinite;
+}
+
+@keyframes logo__animation {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
