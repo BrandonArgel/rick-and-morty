@@ -10,22 +10,29 @@ const API = `https://rickandmortyapi.com/api/character/`
 function useSearchCharacters(characters) {
 	const [query, setQuery] = useState("");
 	const [filterCharacters, setFilterCharacters] = useState(characters);
+	const [results, setResults] = useState(true);
 
 	useMemo(() => {
 		const result = characters.filter((character) => {
 			return character.name.toLowerCase().includes(query.toLowerCase());
 		});
-
-		setFilterCharacters(result);
+		if (result.length > 0) {
+			setFilterCharacters(result);
+			setResults(true);
+		} else {
+			setFilterCharacters(result);
+			setResults(false);
+			console.log("No results");
+		}
 	}, [characters, query]);
 
-	return { query, setQuery, filterCharacters };
+	return { query, setQuery, filterCharacters, results };
 }
 
 export default function MainPage() {
 	const [characters, setCharacters] = useState([]);
 	let [page, setPage] = useState(1);
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const [end, setEnd] = useState(false);
 
 	// Function to get the characters
@@ -68,7 +75,7 @@ export default function MainPage() {
 		getCharacters();
 	}, []);
 
-	const { query, setQuery, filterCharacters } = useSearchCharacters(characters);
+	const { query, setQuery, filterCharacters, results } = useSearchCharacters(characters);
 
 	const handleSearch = (newQuery) => {
 		setQuery(newQuery);
@@ -80,7 +87,7 @@ export default function MainPage() {
 			<Hero />
 			<main className="main__container">
 				<Search value={query} handleSearch={handleSearch} />
-				<Characters characters={filterCharacters} loading={loading} end={end} />
+				<Characters characters={filterCharacters} loading={loading} results={results} end={end} />
 			</main>
 		</Fragment>
 	);

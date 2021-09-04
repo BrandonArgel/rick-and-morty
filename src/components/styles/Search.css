@@ -19,7 +19,7 @@
 }
 
 .search__bar:hover {
-    box-shadow: 0 0 10px 0 rgba(134, 255, 75, 1), inset 2px 0 8px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px 1px rgba(134, 255, 75, 1), inset 2px 0 8px 2px rgba(0, 0, 0, 0.5);
 }
 
 .search__bar:focus-within {

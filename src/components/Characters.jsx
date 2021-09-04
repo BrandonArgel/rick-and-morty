@@ -1,12 +1,39 @@
 import React, { Fragment } from 'react'
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
+import CardCharacter from './CardCharacter'
 
 import "./styles/Characters.css"
 
-export default function Characters({ characters, loading, end }) {
+export default function Characters({ characters, loading, results, end }) {
+    console.log(characters)
+    return (
+        <Fragment>
+            <div className="characters__container">
+                <div className="characters">
+                    {characters !== [] &&
+                        characters.map(character => {
+                            return (
+                                <CardCharacter character={character}
+                                />
+                            )
+                        })
+                    }
+                </div>
+            </div>
+            {loading &&
+                <h3 className="message">Loading more characters...</h3>
+            }
+            {!results && !loading &&
+                <h3 className="message">There's no matches</h3>
+            }
+            {end === true && results &&
+                <h3 className="message">It seems that you have reached the end!</h3>
+            }
+        </Fragment>
+    )
+}
 
-    // fetch origin dimention from API
+// fetch origin dimention from API
     // const [origin, setOrigin] = useState([]);
 
     // const fetchData = async character => {
@@ -24,54 +51,3 @@ export default function Characters({ characters, loading, end }) {
     //         fetchData(character);
     //     })
     // }, []);
-
-    return (
-        <Fragment>
-
-            <div className="characters__container">
-                <div className="characters">
-                    {characters !== [] &&
-                        characters.map(character => (
-                            <div className="character__card" key={character.id}>
-                                <div className="character__card--container">
-                                    <h2 className="character__card--name">{character.name}</h2>
-                                    <ul className="character__card--info">
-                                        <li><p><strong>Gender:</strong> {character.gender}</p></li>
-                                        <li><p className="character__card--info-status"><strong>Status:</strong> {`${character.status} `} {character.status === "Alive" ? <span style={{ background: "rgba(0, 255, 0, 1)" }}></span> : character.status === "Dead" ? <span style={{ background: "rgba(255, 0, 0, 1)" }}></span> : <span style={{ background: "rgba(200, 200, 200, 1)" }}></span>}</p></li>
-                                        <li><p><strong>Specie:</strong> {character.species}</p></li>
-                                        <li><p><strong>Origin:</strong> {character.origin.name}</p></li>
-                                        <li><p><strong>Location:</strong> {character.location.name}</p></li>
-                                    </ul>
-                                </div>
-                                <img className="character__card--img" src={character.image} alt={character.name + " photo"} />
-                            </div>
-                        ))
-                    }
-                    {loading === true &&
-                        <Fragment>
-                            <SkeletonTheme color="rgba(0,0,0,0.8)" highlightColor="rgba(134, 255, 75, 0.8)" >
-                                <Skeleton className="character__card" height={250} count={3} />
-                            </SkeletonTheme>
-                            <SkeletonTheme color="rgba(0,0,0,0.8)" highlightColor="rgba(134, 255, 75, 0.8)" >
-                                <Skeleton className="character__card" height={250} count={3} />
-                            </SkeletonTheme>
-                            <SkeletonTheme color="rgba(0,0,0,0.8)" highlightColor="rgba(134, 255, 75, 0.8)" >
-                                <Skeleton className="character__card" height={250} count={3} />
-                            </SkeletonTheme>
-                            <SkeletonTheme color="rgba(0,0,0,0.8)" highlightColor="rgba(134, 255, 75, 0.8)" >
-                                <Skeleton className="character__card" height={250} count={3} />
-                            </SkeletonTheme>
-                            <SkeletonTheme color="rgba(0,0,0,0.8)" highlightColor="rgba(134, 255, 75, 0.8)" >
-                                <Skeleton className="character__card" height={250} count={3} />
-                            </SkeletonTheme>
-                        </Fragment>
-                    }
-
-                </div>
-            </div>
-            {end === true &&
-                <h3 className="end__message">It seems that you have reached the end of the characters!</h3>
-            }
-        </Fragment>
-    )
-}

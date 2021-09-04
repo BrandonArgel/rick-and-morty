@@ -6,7 +6,7 @@
 .characters {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-template-rows: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     margin: 0 auto;
     max-width: 1200px;
@@ -126,11 +126,11 @@
     }
 }
 
-.end__message {
+.message {
     color: rgba(134, 255, 75, 1);
-    font: bolder 2.8rem 'Lato', 'Helvetica Neue', sans-serif;
+    font: bolder clamp(2rem, 6vw, 3rem) 'Lato', 'Helvetica Neue', sans-serif;
     position: relative;
-    padding: 20px 0;
+    padding: 20px 0 50px;
     text-align: center;
     top: -50px;
 }
