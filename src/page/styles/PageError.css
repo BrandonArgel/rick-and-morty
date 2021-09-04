@@ -1,0 +1,23 @@
+.page-error__container {
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+}
+
+.page-error__container h2 {
+    color: rgba(134, 255, 75, 1);
+    font: bolder clamp(2rem, 6vw, 3rem) 'Lato', 'Helvetica Neue', sans-serif;
+    padding: 0 20px;
+    position: absolute;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgb(0, 0, 0), -1px 1px 2px rgb(0, 0, 0), 1px -1px 2px rgb(0, 0, 0), -1px -1px 2px rgb(0, 0, 0);
+    top: 20px;
+}
+
+.page-error__container img {
+    max-width: 60vh;
+    width: 100%;
+}

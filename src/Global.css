@@ -12,7 +12,7 @@ html {
 }
 
 body {
-  background: black fixed linear-gradient(rgb(18, 19, 30), rgb(18, 19, 61) 70%, rgb(18, 19, 91));
+  background: black fixed linear-gradient(rgb(0, 0, 0), rgb(0, 0, 10) 70%, rgb(0, 0, 46));
   color: rgb(255, 255, 255);
   font: normal 1.6rem 'Lato', 'Helvetica Neue', sans-serif;
 }

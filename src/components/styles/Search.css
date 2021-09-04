@@ -8,9 +8,10 @@
 
 .search__bar {
     align-items: center;
-    background-color: #fff;
+    background-color: rgb(0, 0, 0);
+    border: 1px solid rgba(134, 255, 75, 1);
     border-radius: 18px;
-    box-shadow: 0 0 10px 0 rgba(134, 255, 75, 1), inset 2px 0 8px 2px rgba(0, 0, 0, 0.75);
+    box-shadow: 0 0 10px 0 rgba(134, 255, 75, 1);
     display: flex;
     margin: 0 auto;
     max-width: 700px;
@@ -19,7 +20,7 @@
 }
 
 .search__bar:hover {
-    box-shadow: 0 0 10px 1px rgba(134, 255, 75, 1), inset 2px 0 8px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px 3px rgba(134, 255, 75, 1);
 }
 
 .search__bar:focus-within {
@@ -40,29 +41,35 @@
 .search__bar input {
     border: none;
     background-color: transparent;
+    caret-color: rgba(255, 255, 255, 0.8);
+    color: rgb(255, 255, 255);
     height: 100%;
     padding: 10px 20px;
     width: 100%;
 }
 
+.search__bar input::placeholder {
+    color: rgba(255, 255, 255, 0.8);
+}
+
 @keyframes search__bar__animation {
     0% {
-        box-shadow: 1px 0 10px 3px rgba(134, 255, 75, 1), inset 2px 0 8px 2px rgba(0, 0, 0, 0.5);
+        box-shadow: 1px 0 10px 3px rgba(134, 255, 75, 1);
     }
 
     25% {
-        box-shadow: 0 1px 10px 3px rgba(134, 255, 75, 1), inset 2px 0 8px 2px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 1px 10px 3px rgba(134, 255, 75, 1);
     }
 
     50% {
-        box-shadow: -1px 0 10px 3px rgba(134, 255, 75, 1), inset 2px 0 8px 2px rgba(0, 0, 0, 0.5);
+        box-shadow: -1px 0 10px 3px rgba(134, 255, 75, 1);
     }
 
     75% {
-        box-shadow: 0 -1px 10px 3px rgba(134, 255, 75, 1), inset 2px 0 8px 2px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 -1px 10px 3px rgba(134, 255, 75, 1);
     }
 
     100% {
-        box-shadow: 1px 0 10px 3px rgba(134, 255, 75, 1), inset 2px 0 8px 2px rgba(0, 0, 0, 0.5);
+        box-shadow: 1px 0 10px 3px rgba(134, 255, 75, 1);
     }
 }

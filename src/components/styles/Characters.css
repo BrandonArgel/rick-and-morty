@@ -31,14 +31,13 @@
 }
 
 .character__card--name {
-    color: rgba(0, 0, 0, 1);
+    color: rgba(134, 255, 75, 1);
     font: bolder 1.8rem 'Lato', 'Helvetica Neue', sans-serif;
     /* overflow: hidden; */
     /* text-overflow: ellipsis; */
     padding: 5px 10px;
     position: relative;
     text-align: center;
-    text-shadow: 1px 1px 1px rgba(134, 255, 75, 0.9), 1px -1px 1px rgba(134, 255, 75, 0.9), -1px 1px 1px rgba(134, 255, 75, 0.9), -1px -1px 1px rgba(134, 255, 75, 0.9);
     /* white-space: nowrap; */
 }
 
@@ -133,4 +132,50 @@
     padding: 20px 0 50px;
     text-align: center;
     top: -50px;
+}
+
+.info {
+    background: rgb(0, 0, 0) linear-gradient(127deg, rgba(0, 0, 0, 1) 45%, rgba(134, 255, 75, 0.5) 50%, rgba(0, 0, 0, 1) 55%) 100% / 300%;
+    border-radius: 10px;
+    bottom: 0;
+    border: 1px solid rgba(134, 255, 75, 1);
+    color: rgba(134, 255, 75, 1);
+    font: bolder clamp(1.4rem, 4vw, 2.5rem) 'Lato', 'Helvetica Neue', sans-serif;
+    margin: 10px;
+    padding: 10px 20px;
+    position: fixed;
+    right: 0;
+    text-align: right;
+    width: fit-content;
+    animation: info_animation 5s ease-out 3s both;
+    filter: contrast(1.5);
+}
+
+@keyframes info_animation {
+    0% {
+        bottom: -100px;
+    }
+
+    10% {
+        bottom: 0;
+        right: 0;
+    }
+
+    30% {
+        background: rgb(0, 0, 0) linear-gradient(127deg, rgba(0, 0, 0, 1) 45%, rgba(134, 255, 75, 0.5) 50%, rgba(0, 0, 0, 1) 55%) 100% / 300%;
+    }
+
+    70% {
+        background: rgb(0, 0, 0) linear-gradient(127deg, rgba(0, 0, 0, 1) 45%, rgba(134, 255, 75, 0.5) 50%, rgba(0, 0, 0, 1) 55%) 0% / 300%;
+    }
+
+    90% {
+        bottom: 0;
+        right: 0;
+    }
+
+    100% {
+        display: none;
+        right: -100%;
+    }
 }

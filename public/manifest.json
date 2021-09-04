@@ -3,12 +3,12 @@
   "name": "Create React App Sample",
   "icons": [
     {
-      "src": "portal.png",
-      "type": "image/png"
+      "src": "logo.svg",
+      "type": "image/svg+xml"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "rgba(134, 255, 75, 1)",
+  "background_color": "rgb(0, 0, 0)"
 }

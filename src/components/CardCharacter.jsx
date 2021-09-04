@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function CardCharacter({ character }) {
     return (
-        <div className="character__card" key={character.id}>
+        <div className="character__card">
             <div className="character__card--container">
                 <h2 className="character__card--name">{character.name}</h2>
                 <ul className="character__card--info">
