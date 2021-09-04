@@ -41,5 +41,8 @@
   "description": "Rick and Morty API",
   "main": "index.js",
   "author": "Brandon Argel Verdeja Domínguez",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "gh-pages": "^3.2.3"
+  }
 }
