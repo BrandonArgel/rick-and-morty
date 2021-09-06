@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment } from 'react'
 
 import CardCharacter from './CardCharacter'
 import Loader from './Loader'
@@ -32,22 +32,3 @@ export default function Characters({ characters, loading, results, end }) {
         </Fragment>
     )
 }
-
-// fetch origin dimention from API
-    // const [origin, setOrigin] = useState([]);
-
-    // const fetchData = async character => {
-    //     if (character.origin.url) {
-    //         const response = await fetch(character.origin.url);
-    //         const data = await response.json();
-    //         setOrigin(prevData => [...prevData, data]);
-    //     } else {
-    //         setOrigin(prevData => [...prevData, character.origin.name]);
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     characters.map(character => {
-    //         fetchData(character);
-    //     })
-    // }, []);

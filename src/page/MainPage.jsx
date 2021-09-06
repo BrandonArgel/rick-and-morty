@@ -42,6 +42,7 @@ export default function MainPage() {
 	// Function to get the characters
 	const getCharacters = async () => {
 		setLoading(true);
+		console.log(`Page: ${page}`)
 		try {
 			const response = await fetchCharacters(page);
 			setPage(page++);
@@ -61,10 +62,6 @@ export default function MainPage() {
 					setCharacters((prevState) => [...prevState, character]);
 				}
 			})
-			if (response.info.next === null) {
-				setEnd(true);
-				document.removeEventListener("scroll", onScroll)
-			}
 			setLoading(false);
 		} catch (error) {
 			setLoading(false);
@@ -83,19 +80,22 @@ export default function MainPage() {
 		// It Works!
 
 		if (scrollTop >= scrollHeight - clientHeight - 10) {
-			if (!loading) {
+			if (!loading && page <= 34) {
 				getCharacters();
-				document.removeEventListener("scroll", onScroll)
+				if (page === 34) {
+					setEnd(true)
+				}
+				document.removeEventListener("scroll", onScroll);
 				setTimeout(() => {
-					document.addEventListener("scroll", onScroll)
+					document.addEventListener("scroll", onScroll);
 				}, 500);
 			}
 		}
 	}
 
 	useEffect(() => {
-		document.addEventListener("scroll", onScroll)
 		getCharacters();
+		document.addEventListener("scroll", onScroll)
 	}, []);
 
 	const { query, setQuery, filterCharacters, results } = useSearchCharacters(characters);
