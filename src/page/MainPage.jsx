@@ -45,12 +45,25 @@ export default function MainPage() {
 		try {
 			const response = await fetchCharacters(page);
 			setPage(page++);
+			response.results.forEach((character) => {
+				if (character.origin.url !== "") {
+					const getDimension = async (url) => {
+						const response = await fetch(url);
+						const dimension = await response.json();
+						return dimension.dimension;
+					}
+					getDimension(character.origin.url).then((dimension) => {
+						character.dimension = dimension;
+						setCharacters((prevState) => [...prevState, character]);
+					});
+				} else {
+					character.dimension = character.origin.name;
+					setCharacters((prevState) => [...prevState, character]);
+				}
+			})
 			if (response.info.next === null) {
-				setCharacters(prevCharacters => [...prevCharacters, ...response.results]);
 				setEnd(true);
 				document.removeEventListener("scroll", onScroll)
-			} else if (!end) {
-				setCharacters(prevCharacters => [...prevCharacters, ...response.results]);
 			}
 			setLoading(false);
 		} catch (error) {
@@ -69,8 +82,14 @@ export default function MainPage() {
 		// console.log(scrollTop + clientHeight, scrollHeight);
 		// It Works!
 
-		if (scrollTop >= scrollHeight - clientHeight - 50) {
-			getCharacters();
+		if (scrollTop >= scrollHeight - clientHeight - 10) {
+			if (!loading) {
+				getCharacters();
+				document.removeEventListener("scroll", onScroll)
+				setTimeout(() => {
+					document.addEventListener("scroll", onScroll)
+				}, 500);
+			}
 		}
 	}
 

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 
 import CardCharacter from './CardCharacter'
 import Loader from './Loader'
