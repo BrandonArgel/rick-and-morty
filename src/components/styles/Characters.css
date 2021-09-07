@@ -101,7 +101,7 @@
     animation: normal_height_animation .3s ease-out both;
     background: rgba(0, 0, 0, 0.7);
     position: absolute;
-    z-index: 100;
+    z-index: 1;
 }
 
 .characters .character__card:hover .character__card--container .character__card--name {
