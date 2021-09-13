@@ -25,6 +25,7 @@
 .character__card--container {
     background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.6) 100%);
     bottom: 0;
+    overflow: hidden;
     position: absolute;
     transition: all 0.3s ease-in-out;
     width: 100%;
@@ -68,14 +69,15 @@
     font: 1.6rem/1.8rem 'Lato', 'Helvetica Neue', sans-serif;
 }
 
-.character__card--info li p.character__card--info-status {
+.character__card--info li p span.character__card--info-status {
     display: inline-flex;
     flex-direction: row;
     align-items: flex-end;
+
 }
 
 .character__card--info li p strong {
-    color: rgb(34, 162, 189);
+    color: rgb(104, 200, 255);
     margin-right: 5px;
 }
 
@@ -94,7 +96,7 @@
 }
 
 .characters .character__card:hover .character__card--container {
-    animation: normal_height_animation .3s ease-out both;
+    animation: normal_height_animation .3s ease-in-out both;
     background: rgba(0, 0, 0, 0.7);
     position: absolute;
     z-index: 1;

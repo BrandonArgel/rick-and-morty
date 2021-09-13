@@ -96,6 +96,8 @@ export default function MainPage() {
 	useEffect(() => {
 		getCharacters();
 		document.addEventListener("scroll", onScroll)
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const { query, setQuery, filterCharacters, results } = useSearchCharacters(characters);
