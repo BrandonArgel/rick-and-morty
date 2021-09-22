@@ -43,6 +43,9 @@ export default function MainPage() {
 	const getCharacters = async () => {
 		setLoading(true);
 		console.log(`Page: ${page}`)
+		if (page === 34) {
+			setEnd(true)
+		}
 		try {
 			const response = await fetchCharacters(page);
 			setPage(page++);
@@ -82,9 +85,7 @@ export default function MainPage() {
 		if (scrollTop >= scrollHeight - clientHeight - 10) {
 			if (!loading && page <= 34) {
 				getCharacters();
-				if (page === 34) {
-					setEnd(true)
-				}
+
 				document.removeEventListener("scroll", onScroll);
 				setTimeout(() => {
 					document.addEventListener("scroll", onScroll);
