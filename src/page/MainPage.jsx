@@ -65,7 +65,9 @@ export default function MainPage() {
 					setCharacters((prevState) => [...prevState, character]);
 				}
 			})
-			setLoading(false);
+			setTimeout(() => {
+				setLoading(false);
+			}, 1000);
 		} catch (error) {
 			setLoading(false);
 			setError(error.message);
@@ -85,11 +87,6 @@ export default function MainPage() {
 		if (scrollTop >= scrollHeight - clientHeight - 10) {
 			if (!loading && page <= 34) {
 				getCharacters();
-
-				document.removeEventListener("scroll", onScroll);
-				setTimeout(() => {
-					document.addEventListener("scroll", onScroll);
-				}, 500);
 			}
 		}
 	}
@@ -107,6 +104,11 @@ export default function MainPage() {
 		setQuery(newQuery);
 	}
 
+	// If there is an error, show the error page
+	// if (error) {
+	// 	return <PageError error={error} />
+	// }
+
 	return (
 		<Fragment>
 			<ParticlesBackground />
@@ -119,7 +121,6 @@ export default function MainPage() {
 					</main>
 				</Fragment>
 			)}
-
 		</Fragment>
 	);
 }

@@ -10,18 +10,18 @@
     gap: 20px;
     margin: 0 auto;
     max-width: 1200px;
-    perspective: 2000px;
-    -webkit-perspective: 2000px;
-    -moz-perspective: 2000px;
-    transform-style: preserve-3d;
     width: 100%;
 }
 
 .character__card {
+    perspective: 500px;
     position: relative;
     transition: all 0.5s ease-in-out;
-
     width: 100%;
+}
+
+.character__card--container {
+    transform-style: preserve-3d;
 }
 
 .character__card--img {
@@ -145,7 +145,7 @@
     right: 0;
     text-align: right;
     width: fit-content;
-    animation: info_animation 5s ease-out 3s both;
+    animation: info_animation 5s ease-out 1s both;
     filter: contrast(1.5);
 }
 
@@ -159,12 +159,14 @@
         right: 0;
     }
 
-    30% {
+    20% {
         background: rgb(0, 0, 0) linear-gradient(127deg, rgba(0, 0, 0, 1) 45%, rgba(134, 255, 75, 0.5) 50%, rgba(0, 0, 0, 1) 55%) 100% / 300%;
     }
 
-    70% {
+    50% {
         background: rgb(0, 0, 0) linear-gradient(127deg, rgba(0, 0, 0, 1) 45%, rgba(134, 255, 75, 0.5) 50%, rgba(0, 0, 0, 1) 55%) 0% / 300%;
+        bottom: 0;
+        right: 0;
     }
 
     90% {
