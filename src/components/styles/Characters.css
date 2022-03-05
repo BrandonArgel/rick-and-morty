@@ -1,5 +1,5 @@
 .characters__container {
-    padding: 20px 20px 100px;
+    padding: 20px;
     top: 0;
 }
 
@@ -126,10 +126,8 @@
 .message {
     color: rgba(134, 255, 75, 1);
     font: bolder clamp(2rem, 6vw, 3rem) 'Lato', 'Helvetica Neue', sans-serif;
-    position: relative;
     padding: 20px 0 50px;
     text-align: center;
-    top: -50px;
 }
 
 .info {

@@ -12,7 +12,6 @@ export default function CardCharacter({ character }) {
                         <li><p><strong>Specie:</strong> <span>{character.species}</span></p></li>
                         <li><p><strong>Origin:</strong> <span>{character.origin.name}</span></p></li>
                         <li><p><strong>Location:</strong> <span>{character.location.name}</span></p></li>
-                        <li><p><strong>Dimension:</strong> <span>{character.dimension}</span></p></li>
                     </ul>
                 </div>
                 <div className="character__card--img">
