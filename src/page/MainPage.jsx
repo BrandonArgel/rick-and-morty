@@ -7,6 +7,7 @@ import Loader from '../components/Loader'
 import Search from "../components/Search.jsx";
 import PageError from "./PageError.jsx";
 import ParticlesBackground from "../components/ParticlesBackground.jsx";
+import { useCallback } from "react/cjs/react.production.min";
 
 export default function MainPage() {
 	const [characters, setCharacters] = useState([]);
@@ -15,14 +16,11 @@ export default function MainPage() {
 	const [end, setEnd] = useState(false);
 	const [page, setPage] = useState(1);
 
-	useEffect(() => {
-		getMoreCharacters(page);
-	}, [page]);
-
-	const getMoreCharacters = async () => {
+	const getMoreCharacters = useCallback(async () => {
 		setLoading(true);
 		try {
 			const response = await getCharacters(page);
+			console.log(response);
 			setCharacters(prevCharacters => [...prevCharacters, ...response.results]);
 			setEnd(response.info.next === null);
 		} catch (error) {
@@ -30,7 +28,12 @@ export default function MainPage() {
 		} finally {
 			setLoading(false);
 		}
-	};
+	}, [page]);
+	
+	useEffect(() => {
+		getMoreCharacters(page);
+	}, [getMoreCharacters, page]);
+
 
 	const useSearchCharacters = (characters) => {
 		const [query, setQuery] = useState("");
@@ -65,7 +68,6 @@ export default function MainPage() {
 					</main>
 				</>
 			)}
-
 		</Suspense>
 	);
 }
