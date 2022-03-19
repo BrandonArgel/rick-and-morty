@@ -1,0 +1,139 @@
+@use "styles/variables.scss";
+
+.overlay {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  display: flex;
+  height: 100vh;
+  left: 0;
+  padding: 0 2rem;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+}
+
+.modal {
+  animation: hideModal 0.5s ease-in-out;
+  background-color: variables.$bg-color;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: rgba(100,100,111, 0.2) 0px 7px 29px 0px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+  left: 0;
+  margin: 0 auto;
+  max-width: 60rem;
+  min-height: 50vh;
+  overflow: hidden;
+  position: relative;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+
+  &.open {
+    animation: showModal 0.5s ease-in-out;
+  }
+
+  img {
+    border-radius: 0.5rem;
+    grid-column: 1 / -1;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.25;
+    position: absolute;
+    width: 100%;
+  }
+
+  div {
+    align-items: center;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    grid-column: 1 / -1;
+    padding: 2rem;
+
+    h2 {
+      color: variables.$main-color;
+      font: bold 2.4rem variables.$font;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    p {
+      color: variables.$secondary-text-color;
+      font: normal variables.$fz-md variables.$font;
+      margin-bottom: 0.5rem;
+      text-align: center;
+
+      strong {
+        color: variables.$secondary-color;
+      }
+
+      span {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+}
+
+@keyframes showModal {
+  0% {
+    opacity: 0;
+    transform: translate(0, -100%) scale(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+  
+@keyframes hideModal {
+  0% {
+    opacity: 1;
+    transform: translate(0, -100%) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0);
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .modal {
+    align-items: center;
+    background: transparent;
+    pointer-events: none;
+    
+    img {
+      grid-area: 1 / 1 / 1 / 7;
+      opacity: initial;
+      pointer-events: all;
+      position: relative;
+      transition: all 0.5s ease-in-out;
+      will-change: transform, z-index;
+
+      &:hover {
+        transform: scale(1.05);
+        z-index: 1;
+      }
+    }
+
+    div {
+      justify-content: flex-end;
+      background: variables.$gradient;
+      grid-area: 1 / 4 / 1 / -1;
+      padding: 2rem 1rem;
+      pointer-events: all;
+      position: relative;
+
+      h2, p {
+        text-align: right;
+      }
+    }
+  }
+}

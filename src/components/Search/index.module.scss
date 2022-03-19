@@ -1,0 +1,56 @@
+@use "styles/variables.scss";
+
+.search {
+  align-items: center;
+  background: transparent;
+  border: 1px solid variables.$main-color;
+  border-radius: 2rem;
+  box-shadow: 0 0 1rem 0 variables.$main-color;
+  display: flex;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+  will-change: box-shadow;
+
+  &:hover, &:active, &:focus {
+    box-shadow: 0 0 1rem 0.3rem variables.$main-color;
+  }
+
+  label {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    width: 4rem;
+
+    svg {
+      fill: variables.$main-color;
+      height: 100%;
+    }
+  }
+
+  input {
+    border: none;
+    background-color: transparent;
+    caret-color: rgba(variables.$secondary-text-color, 0.8);
+    color: variables.$secondary-text-color;
+    font: variables.$fz-md variables.$font;
+    height: 100%;
+    overflow-x: hidden;
+    padding: 1rem 2rem;
+    text-overflow: ellipsis;
+    width: calc(100% - 4rem);
+    white-space: nowrap;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: rgba(variables.$secondary-text-color, 0.8);
+      font: variables.$fz-md variables.$font;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
