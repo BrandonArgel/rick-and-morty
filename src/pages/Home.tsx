@@ -65,13 +65,13 @@ const Home = () => {
 					value={status}
 				/>
 				<Dropdown
-					title="Especies..."
+					title="Species..."
 					options={["human", "humanoid", "alien", "unknown"]}
 					setValue={setSpecies}
 					value={species}
 				/>
 				<Dropdown
-					title="Género..."
+					title="Gender..."
 					options={["female", "male", "genderless", "unknown"]}
 					setValue={setGender}
 					value={gender}
