@@ -15,7 +15,6 @@ const Input = ({ defaultValue = 1, max, min = 1, setValue, type }: Props) => {
   return (
       <input
         className={styles.input}
-        defaultValue={defaultValue}
         min={min}
         max={max}
         onChange={(e) => {
