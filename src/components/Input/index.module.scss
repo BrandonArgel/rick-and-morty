@@ -1,0 +1,28 @@
+@use "styles/variables.scss";
+
+input[type="number"] {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.input {
+  background: variables.$gradient;
+  border: none;
+  border-bottom: 1px solid variables.$main-color;
+  color: variables.$main-color;
+  font: variables.$fz-md variables.$font;
+  padding: 0.4rem;
+  text-align: center;
+  width: 3rem;
+
+
+  &:focus {
+    outline: none;
+  }
+}

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Dropdown, Hero, Modal, Search } from "components";
+import { Button, Dropdown, Hero, Input, Modal, Particles, Search } from "components";
 import getCharacters from "utils/getCharacters";
 import getDimension from "utils/getDimension";
 import { Loader } from "assets/icons";
@@ -13,7 +13,7 @@ const Home = () => {
 	const [loading, setLoading] = React.useState(false);
 	const [modal, setModal] = React.useState(false);
 	
-	const [page, setPage] = React.useState(42);
+	const [page, setPage] = React.useState(1);
 	const [search, setSearch] = React.useState("");
 	const [status, setStatus] = React.useState("");
 	const [species, setSpecies] = React.useState("");
@@ -54,6 +54,7 @@ const Home = () => {
 
 	return (
 		<main>
+			<Particles />
 			<Hero />
 			<section className={styles.controls}>
 				<Search placeholder="Search a character..." setValue={setSearch} value={search} />
@@ -100,7 +101,7 @@ const Home = () => {
 						<Button onClick={() => setPage(page - 1)} disabled={!info?.prev || loading}>
 							Prev
 						</Button>
-						<span>{page} / {info?.pages || 0}</span>
+						<span>Page: <Input type="number" defaultValue={page} setValue={setPage} max={info?.pages} /> / {info?.pages || 0}</span>
 						<Button onClick={() => setPage(page + 1)} disabled={!info?.next || loading}>
 							Next
 						</Button>

@@ -130,6 +130,8 @@
       padding: 2rem 1rem;
       pointer-events: all;
       position: relative;
+      transition: all 0.5s ease-in-out;
+      will-change: transform;
 
       h2, p {
         text-align: right;
