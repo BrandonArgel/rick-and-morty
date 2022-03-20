@@ -92,7 +92,7 @@ const Home = () => {
 						{characters &&
 							characters.map((character:any) => (
 								<div key={character.id} className={styles.character} onClick={() => changeModal(character)}>
-									<img src={character.image} alt={character.name} />
+									<img src={character.image} alt={character.name} loading="lazy" />
 									<p>{character.name}</p>
 								</div>
 							))}

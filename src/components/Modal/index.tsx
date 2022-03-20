@@ -1,3 +1,4 @@
+import { Close } from "assets/icons";
 import styles from "./index.module.scss";
 
 interface Props {
@@ -9,15 +10,12 @@ interface Props {
 const Modal = ({ children, open, setOpen }: Props) => {
 	return (
 		<>
-			{open && (
-				<>
-					<button className={styles.overlay} onClick={() => setOpen()}>
-            <dialog className={`${styles.modal} ${open ? styles.open : ""}`} onClick={(e) => e.stopPropagation()}>
-              {children}
-            </dialog>
-          </button>
-				</>
-			)}
+			<button className={`${styles.overlay} ${open ? styles.visible : ""}`} onClick={() => setOpen()}>
+				<aside className={`${styles.modal} ${open ? styles.open : ""}`} onClick={(e) => e.stopPropagation()}>
+					<button className={styles.close} onClick={() => setOpen()} aria-label="Cerrar modal"><Close /></button>
+					{children}
+				</aside>
+			</button>
 		</>
 	);
 };
