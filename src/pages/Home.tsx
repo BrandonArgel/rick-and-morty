@@ -1,9 +1,13 @@
 import * as React from "react";
-import { Characters, Controls, Hero, Modal, Pagination, Particles } from "components";
+import { Controls, Hero, Modal, Pagination } from "components";
 import getCharacters from "utils/getCharacters";
 import getDimension from "utils/getDimension";
 import { Loader } from "assets/icons";
 import styles from "./Home.module.scss";
+
+const Characters = React.lazy(() => import("components/Characters"))
+const Particles = React.lazy(() => import("components/Particles"));
+
 
 const Home = () => {
 	const [characters, setCharacters] = React.useState([]);
@@ -56,7 +60,6 @@ const Home = () => {
 
 	return (
 		<main>
-			<Particles />
 			<Hero />
 			<Controls
 				search={search}
@@ -78,10 +81,11 @@ const Home = () => {
 					<Loader />
 				</div>
 			) : (
-				<>
+				<React.Suspense fallback={<Loader />}>
+					<Particles />
 					<Characters characters={characters} changeModal={changeModal} />
 					<Pagination loading={loading} info={info} page={page} setPage={setPage} />
-				</>
+				</React.Suspense>
 			)}
 			<Modal open={modal} setOpen={() => setModal(false)} character={character} />
 		</main>
