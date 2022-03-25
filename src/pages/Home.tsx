@@ -5,9 +5,8 @@ import getDimension from "utils/getDimension";
 import { Loader } from "assets/icons";
 import styles from "./Home.module.scss";
 
-const Characters = React.lazy(() => import("components/Characters"))
+const Characters = React.lazy(() => import("components/Characters"));
 const Particles = React.lazy(() => import("components/Particles"));
-
 
 const Home = () => {
 	const [characters, setCharacters] = React.useState([]);
@@ -71,23 +70,23 @@ const Home = () => {
 				gender={gender}
 				setGender={setGender}
 			/>
-			{error && (
-				<div className={styles.error}>
-					<p aria-live="assertive">{error}</p>
-				</div>
-			)}
 			{loading ? (
 				<div className={styles.loader}>
 					<Loader />
 				</div>
 			) : (
 				<React.Suspense fallback={<Loader />}>
+					{error && (
+						<div className={styles.error}>
+							<p aria-live="assertive">{error}</p>
+						</div>
+					)}
 					<Particles />
 					<Characters characters={characters} changeModal={changeModal} />
 					<Pagination loading={loading} info={info} page={page} setPage={setPage} />
+					<Modal open={modal} setOpen={() => setModal(false)} character={character} />
 				</React.Suspense>
 			)}
-			<Modal open={modal} setOpen={() => setModal(false)} character={character} />
 		</main>
 	);
 };

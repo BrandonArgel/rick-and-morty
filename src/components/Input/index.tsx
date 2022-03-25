@@ -3,17 +3,20 @@ import styles from "./index.module.scss";
 
 interface Props {
   defaultValue?: number;
+  label?: string;
   max: number;
   min?: number;
   setValue: (value: number) => void;
   type: string;
 }
 
-const Input = ({ defaultValue = 1, max, min = 1, setValue, type }: Props) => {
+const Input = ({ defaultValue = 1, label = "", max, min = 1, setValue, type }: Props) => {
   const [page, setPage] = React.useState(defaultValue); 
 
   return (
-      <input
+      <label className={styles.label}>
+        {label}
+        <input
         className={styles.input}
         min={min}
         max={max}
@@ -34,6 +37,7 @@ const Input = ({ defaultValue = 1, max, min = 1, setValue, type }: Props) => {
         type={type}
         value={page}
       />
+      </label>
   );
 }
 
