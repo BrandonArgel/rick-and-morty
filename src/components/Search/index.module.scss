@@ -47,7 +47,7 @@
     }
 
     &::placeholder {
-      color: rgba(variables.$secondary-text-color, 0.8);
+      color: rgba(variables.$secondary-text-color, 1);
       font: variables.$fz-md variables.$font;
       text-overflow: ellipsis;
       white-space: nowrap;

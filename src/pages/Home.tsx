@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Dropdown, Hero, Input, Modal, Particles, Search } from "components";
+import { Characters, Controls, Hero, Modal, Pagination, Particles } from "components";
 import getCharacters from "utils/getCharacters";
 import getDimension from "utils/getDimension";
 import { Loader } from "assets/icons";
@@ -12,23 +12,28 @@ const Home = () => {
 	const [error, setError] = React.useState("");
 	const [loading, setLoading] = React.useState(false);
 	const [modal, setModal] = React.useState(false);
-	
+
 	const [page, setPage] = React.useState(1);
 	const [search, setSearch] = React.useState("");
 	const [status, setStatus] = React.useState("");
 	const [species, setSpecies] = React.useState("");
 	const [gender, setGender] = React.useState("");
-	
 
 	const initialRequest = React.useCallback(async () => {
 		setLoading(true);
-		const { data, results, error, p } = await getCharacters({ page, search, status, species, gender });
-	
+		const { data, results, error, p } = await getCharacters({
+			page,
+			search,
+			status,
+			species,
+			gender,
+		});
+
 		setCharacters(results);
 		setInfo(data);
-		setPage(p)
+		setPage(p);
 		setError(error);
-	
+
 		setLoading(false);
 	}, [page, search, status, species, gender]);
 
@@ -38,45 +43,31 @@ const Home = () => {
 
 	const changeModal = async (char: any) => {
 		setCharacter(char);
-		if(char.origin.url) {
-			const dimension = await getDimension({url: char.origin.url})
-			// Add dimension to state 
+		if (char.origin.url) {
+			const dimension = await getDimension({ url: char.origin.url });
 			setCharacter((prevState: any) => ({ ...prevState, dimension }));
 		} else {
 			setCharacter((prevState: any) => ({ ...prevState, dimension: char.origin.name }));
 		}
-		setModal(true)
-	}
+		setModal(true);
+	};
 
-	React.useEffect(() => {
-
-	}, [character])
+	React.useEffect(() => {}, [character]);
 
 	return (
 		<main>
 			<Particles />
 			<Hero />
-			<section className={styles.controls}>
-				<Search placeholder="Search a character..." setValue={setSearch} value={search} />
-				<Dropdown
-					title="Status..."
-					options={["alive", "dead", "unknown"]}
-					setValue={setStatus}
-					value={status}
-				/>
-				<Dropdown
-					title="Species..."
-					options={["human", "humanoid", "alien", "unknown"]}
-					setValue={setSpecies}
-					value={species}
-				/>
-				<Dropdown
-					title="Gender..."
-					options={["female", "male", "genderless", "unknown"]}
-					setValue={setGender}
-					value={gender}
-				/>
-			</section>
+			<Controls
+				search={search}
+				setSearch={setSearch}
+				status={status}
+				setStatus={setStatus}
+				species={species}
+				setSpecies={setSpecies}
+				gender={gender}
+				setGender={setGender}
+			/>
 			{error && (
 				<div className={styles.error}>
 					<p aria-live="assertive">{error}</p>
@@ -88,42 +79,11 @@ const Home = () => {
 				</div>
 			) : (
 				<>
-					<section className={styles.characters}>
-						{characters &&
-							characters.map((character:any) => (
-								<div key={character.id} className={styles.character} onClick={() => changeModal(character)}>
-									<img src={character.image} alt={character.name} loading="lazy" />
-									<p>{character.name}</p>
-								</div>
-							))}
-					</section>
-					<div className={styles.pagination}>
-						<Button onClick={() => setPage(page - 1)} disabled={!info?.prev || loading}>
-							Prev
-						</Button>
-						<span>Page: <Input type="number" defaultValue={page} setValue={setPage} max={info?.pages} /> / {info?.pages || 0}</span>
-						<Button onClick={() => setPage(page + 1)} disabled={!info?.next || loading}>
-							Next
-						</Button>
-					</div>
+					<Characters characters={characters} changeModal={changeModal} />
+					<Pagination loading={loading} info={info} page={page} setPage={setPage} />
 				</>
 			)}
-			<Modal open={modal} setOpen={() => setModal(false)}>
-				{character.id && (
-					<>
-						<img src={character.image} alt={character.name} />
-						<div>
-							<h2>{character?.name}</h2>
-							<p><strong>Status:</strong> {character?.status} <span>{character?.status === "Alive" ? "🟢" : character?.status === "Dead" ? "🔴": "⚪"}</span></p>
-							<p><strong>Species:</strong> {character?.species}</p>
-							{character?.type && <p><strong>Type:</strong> {character?.type}</p>}
-							<p><strong>Location:</strong> {character?.location?.name}</p>
-							<p><strong>Origin:</strong> {character?.origin?.name}</p>
-							<p><strong>Dimension:</strong> {character?.dimension}</p>
-						</div>
-					</>
-				)}
-			</Modal>
+			<Modal open={modal} setOpen={() => setModal(false)} character={character} />
 		</main>
 	);
 };

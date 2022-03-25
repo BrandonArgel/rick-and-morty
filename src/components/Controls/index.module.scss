@@ -1,0 +1,19 @@
+.controls {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin: 0 auto;
+  max-width: 100rem;
+  padding: 2rem 0;
+  width: 100%;
+
+  & div {
+    grid-column: 1 / -1;
+  }
+}
+
+@media screen and (min-width: 425px) {
+  .controls {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
