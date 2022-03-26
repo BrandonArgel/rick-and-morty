@@ -1,14 +1,15 @@
-import BannerLg from "assets/images/banner-lg.png";
-import BannerMd from "assets/images/banner-md.png";
+import Banner from "assets/images/banner.png";
+import Banner2x from "assets/images/banner-2x.png";
 import BannerSm from "assets/images/banner-sm.png";
+import BannerSm2x from "assets/images/banner-sm-2x.png";
 import styles from "./index.module.scss";
 
 const Hero = () => (
-  <img
-    className={styles.hero}
-    srcSet={`${BannerSm} 320w, ${BannerMd} 768w, ${BannerLg} 1024w`}
-    src={BannerLg}
-    alt="Banner"
-  />
-)
+	<picture>
+    <source media="(min-width: 800px)" srcSet={`${Banner} 1x, ${Banner2x} 2x`} />
+    <source media="(min-width: 400px)" srcSet={`${BannerSm} 1x, ${BannerSm2x} 2x`} />
+    <img className={styles.hero} src={Banner} alt="Rick and Morty logo" loading="lazy" />
+  </picture>
+);
+
 export default Hero;

@@ -1,68 +1,76 @@
 @use "styles/variables.scss";
 
 .characters {
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-  margin: 0 auto;
-  max-width: 100rem;
-  padding: 2rem 0;
-  width: 100%;
+	display: grid;
+	gap: 2rem;
+	grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+	margin: 0 auto;
+	max-width: 100rem;
+	padding: 2rem 0;
+	width: 100%;
 
-  .character {
-    border-radius: 1rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
+	.character {
+		border-radius: 1rem;
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		position: relative;
+		overflow: hidden;
 
-    &::after {
-      background: hsla(0,0%,100%,.13);
-      background: linear-gradient(90deg,hsla(0,0%,100%,.13) 0,hsla(0,0%,100%,.13) 77%,hsla(0,0%,100%,.5) 92%,hsla(0,0%,100%,0));
-      content: "";
-      position: absolute;
-      top: -180%;
-      left: -110%;
-      width: 220%;
-      height: 220%;
-      opacity: 0;
-      transform: rotate(45deg);
-    }
+		&::after {
+			background: hsla(0, 0%, 100%, 0.13);
+			background: linear-gradient(
+				90deg,
+				hsla(0, 0%, 100%, 0.13) 0,
+				hsla(0, 0%, 100%, 0.13) 77%,
+				hsla(0, 0%, 100%, 0.5) 92%,
+				hsla(0, 0%, 100%, 0)
+			);
+			content: "";
+			position: absolute;
+			top: -180%;
+			left: -110%;
+			width: 220%;
+			height: 220%;
+			opacity: 0;
+			transform: rotate(45deg);
+		}
 
-    &:hover::after {
-      opacity: 1;
-      top: -35%;
-      left: -35%;
-      transition-property: left,top,opacity;
-      transition-duration: .7s,.7s,.15s;
-      transition-timing-function: ease;
-    }
-  }
+		&:hover::after {
+			opacity: 1;
+			top: -35%;
+			left: -35%;
+			transition-property: left, top, opacity;
+			transition-duration: 0.7s, 0.7s, 0.15s;
+			transition-timing-function: ease;
+		}
+	}
 
-  img {
-    width: 100%;
-  }
+	img {
+		aspect-ratio: 1 / 1;
+		height: auto;
+		width: 100%;
+	}
 
-  p {
-    bottom: 0;
-    background-image: linear-gradient(0deg,#000001,rgba(0,0,0,.6));
-    color: variables.$main-color;
-    font: variables.$fz-lg variables.$font;
-    padding-block-end: 1rem;
-    position: absolute;
-    text-align: center;
-    text-shadow: 0 0 10px #000;
-    width: 100%;
+	p {
+		bottom: 0;
+		background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.75) 50%, rgba(0, 0, 0, 0.5) 100%);
+		color: variables.$main-color;
+		font: variables.$fz-lg variables.$font;
+		padding-block-end: 1rem;
+		position: absolute;
+		text-align: center;
+		text-shadow: 0 0 10px #000;
+		width: 100%;
 
-    &::before {
-      background-image: linear-gradient(0deg,rgba(0,0,0,.6),transparent);
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: -100%;
-      left: 0;
-    }
-  }
+		&::before {
+			background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+			content: "";
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: -100%;
+			left: 0;
+		}
+	}
 }

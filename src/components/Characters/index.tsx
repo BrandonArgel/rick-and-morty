@@ -15,7 +15,7 @@ const Characters: React.FC<Props> = ({ characters, changeModal }) => {
 						className={styles.character}
 						onClick={() => changeModal(character)}
 					>
-						<img src={character.image} alt={character.name} loading="lazy" />
+						<img src={character.image} alt={character.name} loading="lazy" width={200} height={200} />
 						<p>{character.name}</p>
 					</div>
 				))}

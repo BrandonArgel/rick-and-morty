@@ -1,6 +1,7 @@
 .hero {
   animation: logo__animation 3s ease-in-out infinite;
   display: block;
+  height: auto;
   padding: 2rem 0;
   margin: 0 auto;
   max-width: 80rem;
@@ -10,14 +11,14 @@
 
 @keyframes logo__animation {
   0% {
-      transform: translateY(0);
+      transform: translateY(0.5rem);
   }
 
   50% {
-      transform: translateY(-10px);
+      transform: translateY(-0.5rem);
   }
 
   100% {
-      transform: translateY(0);
+      transform: translateY(0.5rem);
   }
 }
