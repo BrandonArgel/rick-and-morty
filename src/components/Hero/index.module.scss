@@ -1,9 +1,9 @@
 .hero {
+  aspect-ratio: 800 / 251;
   animation: logo__animation 3s ease-in-out infinite;
   display: block;
   height: auto;
-  padding: 2rem 0;
-  margin: 0 auto;
+  margin: 2rem auto;
   max-width: 80rem;
   width: 100%;
   will-change: transform;

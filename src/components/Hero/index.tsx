@@ -8,7 +8,7 @@ const Hero = () => (
 	<picture>
     <source media="(min-width: 800px)" srcSet={`${Banner} 1x, ${Banner2x} 2x`} />
     <source media="(min-width: 400px)" srcSet={`${BannerSm} 1x, ${BannerSm2x} 2x`} />
-    <img className={styles.hero} src={Banner} alt="Rick and Morty logo" loading="lazy" />
+    <img className={styles.hero} src={Banner} alt="Rick and Morty logo" width={800} height={251} />
   </picture>
 );
 
