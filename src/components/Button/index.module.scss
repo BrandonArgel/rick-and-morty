@@ -15,7 +15,7 @@
     opacity: 0.5;
   }
 
-  &:not([disabled]):hover {
+  &:not([disabled]):hover, &:not([disabled]):focus {
     filter: brightness(1.1);
     transform: scale(1.1);
   }

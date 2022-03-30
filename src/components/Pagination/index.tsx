@@ -4,7 +4,7 @@ import styles from "./index.module.scss";
 interface Props {
 	loading: boolean;
 	page: number;
-	setPage: React.Dispatch<React.SetStateAction<number>>;
+	setPage: (page: number) => void;
 	info: any;
 }
 

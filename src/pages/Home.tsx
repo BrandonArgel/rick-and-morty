@@ -15,6 +15,7 @@ const Home = () => {
 	const [error, setError] = React.useState("");
 	const [loading, setLoading] = React.useState(false);
 	const [modal, setModal] = React.useState(false);
+	const [lastFocus, setLastFocus] = React.useState(-1);
 
 	const [page, setPage] = React.useState(1);
 	const [search, setSearch] = React.useState("");
@@ -44,8 +45,9 @@ const Home = () => {
 		initialRequest();
 	}, [page, search, status, species, gender, initialRequest]);
 
-	const changeModal = async (char: any) => {
+	const changeModal = async (char: any, i: number) => {
 		setCharacter(char);
+		setLastFocus(i);
 		if (char.origin.url) {
 			const dimension = await getDimension({ url: char.origin.url });
 			setCharacter((prevState: any) => ({ ...prevState, dimension }));
@@ -55,7 +57,10 @@ const Home = () => {
 		setModal(true);
 	};
 
-	React.useEffect(() => {}, [character]);
+	const handleChangePage = (p: number) => {
+		setPage(p);
+		setLastFocus(-1);
+	}
 
 	return (
 		<main>
@@ -82,9 +87,9 @@ const Home = () => {
 						</div>
 					)}
 					<Particles />
-					<Characters characters={characters} changeModal={changeModal} />
-					<Pagination loading={loading} info={info} page={page} setPage={setPage} />
-					<Modal open={modal} setOpen={() => setModal(false)} character={character} />
+					<Characters characters={characters} changeModal={changeModal} lastFocus={lastFocus} modal={modal} />
+					<Pagination loading={loading} info={info} page={page} setPage={handleChangePage} />
+					<Modal open={modal} close={() => setModal(false)} character={character} />
 				</React.Suspense>
 			)}
 		</main>

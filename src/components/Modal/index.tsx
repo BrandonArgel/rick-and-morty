@@ -1,21 +1,34 @@
+import * as React from "react";
 import { Close } from "assets/icons";
 import styles from "./index.module.scss";
 
 interface Props {
 	character: any;
 	open: boolean;
-	setOpen: () => void;
+	close: () => void;
 }
 
-const Modal = ({ character, open, setOpen }: Props) => {
+const Modal = ({ character = {}, open, close }: Props) => {
+	const asideRef = React.useRef<HTMLButtonElement>(null);
+
+	React.useEffect(() => {
+		if (open) setTimeout(() => asideRef.current?.focus(), 100);
+		console.log(open);
+	}, [open]);
+
 	return (
 		<>
 			<button
 				className={`${styles.overlay} ${open ? styles.visible : ""}`}
-				onClick={() => setOpen()}
+				onClick={() => close()}
 			/>
-			<aside className={`${styles.modal} ${open ? styles.open : ""}`}>
-				<button className={styles.close} onClick={() => setOpen()} aria-label="Cerrar modal">
+			<aside
+				ref={asideRef}
+				className={`${styles.modal} ${open ? styles.open : ""}`}
+				aria-hidden={!open}
+				tabIndex={0}
+			>
+				<button className={styles.close} onClick={() => close()} aria-label="Cerrar modal">
 					<Close />
 				</button>
 				{character.id && (

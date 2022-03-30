@@ -23,9 +23,7 @@
 }
 
 .modal {
-	animation: hideModal 0.5s ease-in-out;
 	background: variables.$gradient;
-	border: none;
 	border-radius: 1rem;
 	box-shadow: #000000 0px 7px 29px 0px;
 	display: grid;
@@ -38,14 +36,18 @@
 	opacity: 0;
 	overflow: hidden;
 	position: absolute;
-	transform: translate(-50%, -50%);
+	transform: translate(-50%, -100%) scale(0);
+	transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 	top: 50%;
 	visibility: hidden;
 	width: 100%;
+	will-change: transform, opacity, visibility;
 	z-index: 1;
 
 	&.open {
-		animation: showModal 0.5s ease-in-out forwards;
+		opacity: 1;
+		transform: translate(-50%, -50%) scale(1);
+		visibility: visible;
 	}
 
 	.close {
@@ -60,7 +62,9 @@
 		right: 0;
 		top: 0;
 
-		&:hover svg {
+		&:hover svg,
+		&:active svg,
+		&:focus svg {
 			fill: variables.$error;
 			transition: fill 0.1s ease-in-out;
 		}
@@ -106,34 +110,6 @@
 				width: 100%;
 			}
 		}
-	}
-}
-
-@keyframes showModal {
-	0% {
-		opacity: 0;
-		transform: translate(-50%, -100%) scale(0);
-		visibility: hidden;
-	}
-
-	100% {
-		opacity: 1;
-		transform: translate(-50%, -50%) scale(1);
-		visibility: visible;
-	}
-}
-
-@keyframes hideModal {
-	0% {
-		opacity: 1;
-		transform: translate(-50%, -50%) scale(1);
-		visibility: visible;
-	}
-
-	100% {
-		opacity: 0;
-		transform: translate(-50%, -100%) scale(0);
-		visibility: hidden;
 	}
 }
 
