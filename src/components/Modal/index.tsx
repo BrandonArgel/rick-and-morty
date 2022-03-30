@@ -10,12 +10,17 @@ interface Props {
 const Modal = ({ character, open, setOpen }: Props) => {
 	return (
 		<>
-			<button className={`${styles.overlay} ${open ? styles.visible : ""}`} onClick={() => setOpen()}>
-				<aside className={`${styles.modal} ${open ? styles.open : ""}`} onClick={(e) => e.stopPropagation()}>
-					<button className={styles.close} onClick={() => setOpen()} aria-label="Cerrar modal"><Close /></button>
-					{character.id && (
+			<button
+				className={`${styles.overlay} ${open ? styles.visible : ""}`}
+				onClick={() => setOpen()}
+			/>
+			<aside className={`${styles.modal} ${open ? styles.open : ""}`}>
+				<button className={styles.close} onClick={() => setOpen()} aria-label="Cerrar modal">
+					<Close />
+				</button>
+				{character.id && (
 					<>
-						<img src={character.image} alt={character.name} />
+						<img src={character.image} alt={character.name} width={200} height={200} />
 						<div>
 							<h2>{character?.name}</h2>
 							<p>
@@ -48,8 +53,7 @@ const Modal = ({ character, open, setOpen }: Props) => {
 						</div>
 					</>
 				)}
-				</aside>
-			</button>
+			</aside>
 		</>
 	);
 };
