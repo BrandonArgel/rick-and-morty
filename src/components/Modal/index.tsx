@@ -13,7 +13,6 @@ const Modal = ({ character = {}, open, close }: Props) => {
 
 	React.useEffect(() => {
 		if (open) setTimeout(() => asideRef.current?.focus(), 100);
-		console.log(open);
 	}, [open]);
 
 	return (
@@ -21,6 +20,8 @@ const Modal = ({ character = {}, open, close }: Props) => {
 			<button
 				className={`${styles.overlay} ${open ? styles.visible : ""}`}
 				onClick={() => close()}
+				aria-hidden={!open}
+				tabIndex={-1}
 			/>
 			<aside
 				ref={asideRef}
