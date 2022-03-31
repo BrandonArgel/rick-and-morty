@@ -25,6 +25,8 @@ const Home = () => {
 
 	const initialRequest = React.useCallback(async () => {
 		setLoading(true);
+		setLastFocus(-1);
+
 		const { data, results, error, p } = await getCharacters({
 			page,
 			search,
@@ -59,8 +61,7 @@ const Home = () => {
 
 	const handleChangePage = (p: number) => {
 		setPage(p);
-		setLastFocus(-1);
-	}
+	};
 
 	return (
 		<main>
@@ -87,7 +88,12 @@ const Home = () => {
 						</div>
 					)}
 					<Particles />
-					<Characters characters={characters} changeModal={changeModal} lastFocus={lastFocus} modal={modal} />
+					<Characters
+						characters={characters}
+						changeModal={changeModal}
+						lastFocus={lastFocus}
+						modal={modal}
+					/>
 					<Pagination loading={loading} info={info} page={page} setPage={handleChangePage} />
 					<Modal open={modal} close={() => setModal(false)} character={character} />
 				</React.Suspense>
