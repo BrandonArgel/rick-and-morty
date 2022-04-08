@@ -50,6 +50,7 @@
 	img {
 		aspect-ratio: 1 / 1;
 		height: auto;
+		pointer-events: none;
 		width: 100%;
 	}
 
@@ -59,6 +60,7 @@
 		color: variables.$main-color;
 		font: variables.$fz-lg variables.$font;
 		padding-block-end: 1rem;
+		pointer-events: none;
 		position: absolute;
 		text-align: center;
 		text-shadow: 0 0 10px #000;

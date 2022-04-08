@@ -16,7 +16,6 @@ const Home = () => {
 	const [loading, setLoading] = React.useState(false);
 	const [modal, setModal] = React.useState(false);
 	const [lastFocus, setLastFocus] = React.useState(-1);
-
 	const [page, setPage] = React.useState(1);
 	const [search, setSearch] = React.useState("");
 	const [status, setStatus] = React.useState("");
@@ -47,14 +46,30 @@ const Home = () => {
 		initialRequest();
 	}, [page, search, status, species, gender, initialRequest]);
 
-	const changeModal = async (char: any, i: number) => {
-		setCharacter(char);
-		setLastFocus(i);
-		if (char.origin.url) {
-			const dimension = await getDimension({ url: char.origin.url });
-			setCharacter((prevState: any) => ({ ...prevState, dimension }));
+	const getCharacterDimension = async (url: string) => {
+		const dimension = await getDimension({ url });
+		setCharacter((prevState: any) => ({ ...prevState, dimension }));
+	};
+
+	const changeModalCharacter = (e: React.SyntheticEvent<EventTarget>) => {
+		if (!(e.target instanceof HTMLButtonElement)) {
+			return;
+		}
+		const { id, image, location, name, originName, originUrl, status, species } = e.target.dataset;
+		setLastFocus(Number(id));
+		setCharacter({
+			id,
+			image,
+			location,
+			name,
+			originName,
+			status,
+			species,
+		});
+		if (!originUrl) {
+			setCharacter((prevState: any) => ({ ...prevState, dimension: originName }));
 		} else {
-			setCharacter((prevState: any) => ({ ...prevState, dimension: char.origin.name }));
+			getCharacterDimension(originUrl);
 		}
 		setModal(true);
 	};
@@ -90,7 +105,7 @@ const Home = () => {
 					<Particles />
 					<Characters
 						characters={characters}
-						changeModal={changeModal}
+						changeModalCharacter={changeModalCharacter}
 						lastFocus={lastFocus}
 						modal={modal}
 					/>
