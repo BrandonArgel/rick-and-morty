@@ -56,10 +56,10 @@ const Modal = ({ character = {}, open, close }: Props) => {
 								</p>
 							)}
 							<p>
-								<strong>Location:</strong> {character?.location?.name}
+								<strong>Location:</strong> {character?.location}
 							</p>
 							<p>
-								<strong>Origin:</strong> {character?.origin?.name}
+								<strong>Origin:</strong> {character?.originName}
 							</p>
 							<p>
 								<strong>Dimension:</strong> {character?.dimension}
