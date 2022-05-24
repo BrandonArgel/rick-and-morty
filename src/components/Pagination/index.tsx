@@ -15,8 +15,14 @@ const Pagination: React.FC<Props> = ({ loading, page, setPage, info }) => {
 				Prev
 			</Button>
 			<span>
-				<Input type="number" defaultValue={page} label="Page:" setValue={setPage} max={info?.pages} /> /{" "}
-				{info?.pages || 0}
+				<Input
+					type="number"
+					defaultValue={page}
+					label="Page:"
+					setValue={setPage}
+					max={info?.pages || 1}
+				/>{" "}
+				/ {info?.pages || 0}
 			</span>
 			<Button onClick={() => setPage(page + 1)} disabled={!info?.next || loading}>
 				Next
