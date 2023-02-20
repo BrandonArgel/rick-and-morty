@@ -1,0 +1,1 @@
+export { lazyLoading } from './lazyLoading';

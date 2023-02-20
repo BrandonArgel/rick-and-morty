@@ -1,4 +1,5 @@
 export { default as Button } from './Button';
+export { default as Card } from './Card';
 export { default as Characters } from './Characters';
 export { default as Controls } from './Controls';
 export { default as Dropdown } from './Dropdown';

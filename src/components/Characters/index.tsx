@@ -1,14 +1,21 @@
 import * as React from "react";
+import { Card } from "components";
+import { CharacterModel } from "models";
 import styles from "./index.module.scss";
 
-interface Props {
-	characters: any[];
+interface CharactersProps {
+	characters: CharacterModel[];
 	changeModalCharacter: (e: React.SyntheticEvent<EventTarget>) => void;
 	lastFocus: number;
 	modal: boolean;
 }
 
-const Characters: React.FC<Props> = ({ characters, changeModalCharacter, lastFocus, modal }) => {
+const Characters: React.FC<CharactersProps> = ({
+	characters,
+	changeModalCharacter,
+	lastFocus,
+	modal,
+}) => {
 	React.useEffect(() => {
 		// If the modal is closed, focus on the last focused character
 		if (!modal && lastFocus !== -1) {
@@ -21,30 +28,14 @@ const Characters: React.FC<Props> = ({ characters, changeModalCharacter, lastFoc
 	return (
 		<section className={styles.characters} onClick={changeModalCharacter}>
 			{characters &&
-				characters.map((character: any, i) => (
-					<button
-						id={`character-${i}`}
-						key={character.id}
-						className={styles.character}
-						data-id={i}
-						data-image={character?.image}
-						aria-label={`Ver detalles de ${character.name}`}
-						data-location={character?.location?.name}
-						data-name={character?.name}
-						data-origin-name={character?.origin?.name}
-						data-origin-url={character?.origin?.url}
-						data-status={character?.status}
-						data-species={character?.species}
-					>
-						<img
-							src={character.image}
-							alt={character.name}
-							loading="lazy"
-							width={200}
-							height={200}
-						/>
-						<p>{character.name}</p>
-					</button>
+				characters.map((character, i) => (
+					<Card
+						character={character}
+						changeModalCharacter={changeModalCharacter}
+						lastFocus={lastFocus}
+						modal={modal}
+						key={i}
+					/>
 				))}
 		</section>
 	);

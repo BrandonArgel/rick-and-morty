@@ -1,14 +1,15 @@
 import * as React from "react";
 import { Close } from "assets/icons";
+import { CharacterModel } from "models";
 import styles from "./index.module.scss";
 
 interface Props {
-	character: any;
+	character: CharacterModel;
 	open: boolean;
 	close: () => void;
 }
 
-const Modal = ({ character = {}, open, close }: Props) => {
+const Modal = ({ character: {id, image, name, status, species, type, location, dimension, originName}, open, close }: Props) => {
 	const asideRef = React.useRef<HTMLButtonElement>(null);
 
 	React.useEffect(() => {
@@ -32,37 +33,37 @@ const Modal = ({ character = {}, open, close }: Props) => {
 				<button className={styles.close} onClick={() => close()} aria-label="Cerrar modal">
 					<Close />
 				</button>
-				{character.id && (
+				{id && (
 					<>
-						<img src={character.image} alt={character.name} width={200} height={200} />
+						<img src={image} alt={name} width={200} height={200} />
 						<div>
-							<h2>{character?.name}</h2>
+							<h2>{name}</h2>
 							<p>
-								<strong>Status:</strong> {character?.status}{" "}
+								<strong>Status:</strong> {status}{" "}
 								<span>
-									{character?.status === "Alive"
+									{status === "Alive"
 										? "🟢"
-										: character?.status === "Dead"
+										: status === "Dead"
 										? "🔴"
 										: "⚪"}
 								</span>
 							</p>
 							<p>
-								<strong>Species:</strong> {character?.species}
+								<strong>Species:</strong> {species}
 							</p>
-							{character?.type && (
+							{type && (
 								<p>
-									<strong>Type:</strong> {character?.type}
+									<strong>Type:</strong> {type}
 								</p>
 							)}
 							<p>
-								<strong>Location:</strong> {character?.location}
+								<strong>Location:</strong> {location}
 							</p>
 							<p>
-								<strong>Origin:</strong> {character?.originName}
+								<strong>Origin:</strong> {originName}
 							</p>
 							<p>
-								<strong>Dimension:</strong> {character?.dimension}
+								<strong>Dimension:</strong> {dimension}
 							</p>
 						</div>
 					</>

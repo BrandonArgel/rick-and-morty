@@ -1,0 +1,38 @@
+@use "styles/variables.scss";
+
+
+.character {
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    background: hsla(0, 0%, 100%, 0.13);
+    background: linear-gradient(90deg,
+        hsla(0, 0%, 100%, 0.13) 0,
+        hsla(0, 0%, 100%, 0.13) 77%,
+        hsla(0, 0%, 100%, 0.5) 92%,
+        hsla(0, 0%, 100%, 0));
+    content: "";
+    position: absolute;
+    top: -180%;
+    left: -110%;
+    width: 220%;
+    height: 220%;
+    opacity: 0;
+    transform: rotate(45deg);
+  }
+
+  &:hover::after {
+    opacity: 1;
+    top: -35%;
+    left: -35%;
+    transition-property: left, top, opacity;
+    transition-duration: 0.7s, 0.7s, 0.15s;
+    transition-timing-function: ease;
+  }
+}

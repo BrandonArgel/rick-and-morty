@@ -8,7 +8,7 @@ interface Props {
 	setStatus: React.Dispatch<React.SetStateAction<string>>;
 	species: string;
 	setSpecies: React.Dispatch<React.SetStateAction<string>>;
-  gender: string;
+	gender: string;
 	setGender: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -19,27 +19,27 @@ const Controls: React.FC<Props> = ({
 	setStatus,
 	species,
 	setSpecies,
-  gender,
-  setGender
+	gender,
+	setGender,
 }) => {
 	return (
 		<section className={styles.controls}>
 			<Search placeholder="Search a character..." setValue={setSearch} value={search} />
 			<Dropdown
 				title="Status..."
-				options={["alive", "dead", "unknown"]}
+				options={["Alive", "Dead", "Unknown"]}
 				setValue={setStatus}
 				value={status}
 			/>
 			<Dropdown
 				title="Species..."
-				options={["human", "humanoid", "alien", "unknown"]}
+				options={["Human", "Humanoid", "Alien", "Unknown"]}
 				setValue={setSpecies}
 				value={species}
 			/>
 			<Dropdown
 				title="Gender..."
-				options={["female", "male", "genderless", "unknown"]}
+				options={["Female", "Male", "Genderless", "Unknown"]}
 				setValue={setGender}
 				value={gender}
 			/>
