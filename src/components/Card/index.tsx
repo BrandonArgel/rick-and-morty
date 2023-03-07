@@ -1,6 +1,7 @@
 import * as React from "react";
 import { CharacterModel } from "models";
 import { lazyLoading } from "hooks";
+import imgError from "assets/images/error.jpg";
 import styles from "./index.module.scss";
 
 interface Props {
@@ -44,7 +45,14 @@ const Characters: React.FC<Props> = ({ character, changeModalCharacter, lastFocu
 			data-status={character?.status}
 			data-species={character?.species}
 		>
-			<img data-src={character.image} alt={character.name} width={200} height={200} ref={imgRef} />
+			<img
+				data-src={character.image}
+				alt={character.name}
+				width={200}
+				height={200}
+				ref={imgRef}
+				src={imgError}
+			/>
 			{character?.image && <p>{character.name}</p>}
 		</button>
 	);

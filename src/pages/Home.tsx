@@ -1,8 +1,10 @@
 import * as React from "react";
 import { Controls, Hero, Modal, Pagination } from "components";
+import { useLocalStorage } from "hooks";
 import getCharacters from "utils/getCharacters";
 import getDimension from "utils/getDimension";
 import { Loader } from "assets/icons";
+import imgError from "assets/images/error.jpg";
 import styles from "./Home.module.scss";
 
 const Characters = React.lazy(() => import("components/Characters"));
@@ -16,11 +18,11 @@ const Home = () => {
 	const [loading, setLoading] = React.useState(false);
 	const [modal, setModal] = React.useState(false);
 	const [lastFocus, setLastFocus] = React.useState(-1);
-	const [page, setPage] = React.useState(1);
-	const [search, setSearch] = React.useState("");
-	const [status, setStatus] = React.useState("");
-	const [species, setSpecies] = React.useState("");
-	const [gender, setGender] = React.useState("");
+	const [page, setPage] = useLocalStorage("page", 1);
+	const [search, setSearch] = useLocalStorage("search", "");
+	const [status, setStatus] = useLocalStorage("status", "");
+	const [species, setSpecies] = useLocalStorage("species", "");
+	const [gender, setGender] = useLocalStorage("gender", "");
 
 	const initialRequest = React.useCallback(async () => {
 		setCharacters(Array(20).fill({}));
@@ -74,6 +76,14 @@ const Home = () => {
 		setModal(true);
 	};
 
+	const handleReset = () => {
+		setSearch("");
+		setStatus("");
+		setSpecies("");
+		setGender("");
+		setPage(1);
+	};
+
 	return (
 		<main>
 			<Hero />
@@ -86,10 +96,12 @@ const Home = () => {
 				setSpecies={setSpecies}
 				gender={gender}
 				setGender={setGender}
+				reset={handleReset}
 			/>
 			<React.Suspense fallback={<Loader />}>
 				{error && (
 					<div className={styles.error}>
+						<img src={imgError} alt="Error" />
 						<p aria-live="assertive">{error}</p>
 					</div>
 				)}

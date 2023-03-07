@@ -11,11 +11,7 @@ const lazyLoading = (ref: React.RefObject<HTMLImageElement>) => {
       img.onload = () => {
         img.classList.add("show")
         img.parentElement?.classList.remove("skeleton");
-      }
-
-      img.onerror = () => {
-        img.setAttribute("src", "https://rickandmortyapi.com/api/character/avatar/19.jpeg");
-      }
+      };
 
       observer.unobserve(img);
     });

@@ -10,6 +10,7 @@ interface Props {
 	setSpecies: React.Dispatch<React.SetStateAction<string>>;
 	gender: string;
 	setGender: React.Dispatch<React.SetStateAction<string>>;
+	reset: () => void;
 }
 
 const Controls: React.FC<Props> = ({
@@ -21,13 +22,9 @@ const Controls: React.FC<Props> = ({
 	setSpecies,
 	gender,
 	setGender,
+	reset,
 }) => {
-	const handleReset = () => {
-		setSearch("");
-		setStatus("");
-		setSpecies("");
-		setGender("");
-	};
+	
 
 	return (
 		<section className={styles.controls}>
@@ -50,7 +47,7 @@ const Controls: React.FC<Props> = ({
 				setValue={setGender}
 				value={gender}
 			/>
-			<Button onClick={handleReset}>Reset</Button>
+			<Button onClick={reset}>Reset</Button>
 		</section>
 	);
 };

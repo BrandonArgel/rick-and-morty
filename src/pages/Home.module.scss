@@ -14,8 +14,15 @@
 .error {
   align-items: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   padding: 2rem;
+  
+
+  img {
+    border-radius: 50%;
+    margin-bottom: 1rem;
+  }
 
   p {
     color: variables.$error;
