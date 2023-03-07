@@ -12,8 +12,15 @@
   }
 }
 
-@media screen and (min-width: 425px) {
+@media screen and (min-width: 472px) {
   .controls {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr auto;
+  }
+}
+
+@media screen and (min-width: 692px) {
+  .controls {
+    grid-template-columns: repeat(3, 1fr) auto;
   }
 }

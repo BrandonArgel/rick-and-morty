@@ -11,6 +11,23 @@ interface Props {
 const Search = ({ value = "", placeholder, setValue }: Props) => {
 	const [search, setSearch] = React.useState(value);
 
+	React.useEffect(() => {
+		setSearch(value);
+	}, [value]);
+
+	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (!e.target.value) {
+			setValue("");
+		}
+		setSearch(e.target.value.toLowerCase());
+	};
+
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === "Enter") {
+			setValue(search);
+		}
+	};
+
 	return (
 		<div className={styles.search}>
 			<input
@@ -18,12 +35,8 @@ const Search = ({ value = "", placeholder, setValue }: Props) => {
 				type="text"
 				placeholder={placeholder}
 				value={search}
-				onChange={(e) => setSearch(e.target.value.toLowerCase())}
-				onKeyPress={(e) => {
-					if (e.key === "Enter") {
-						setValue(search);
-					}
-				}}
+				onChange={handleSearch}
+				onKeyDown={handleKeyDown}
 				autoFocus
 			/>
 			<label htmlFor="search" onClick={() => setValue(search)}>

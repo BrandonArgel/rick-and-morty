@@ -8,6 +8,7 @@ interface CharactersProps {
 	changeModalCharacter: (e: React.SyntheticEvent<EventTarget>) => void;
 	lastFocus: number;
 	modal: boolean;
+	loading?: boolean;
 }
 
 const Characters: React.FC<CharactersProps> = ({
@@ -15,16 +16,8 @@ const Characters: React.FC<CharactersProps> = ({
 	changeModalCharacter,
 	lastFocus,
 	modal,
+	loading
 }) => {
-	React.useEffect(() => {
-		// If the modal is closed, focus on the last focused character
-		if (!modal && lastFocus !== -1) {
-			// Get the character element with the key of the last focused character
-			const character = document.getElementById(`character-${lastFocus}`);
-			// Focus on the character element
-			character!.focus();
-		}
-	}, [lastFocus, modal]);
 	return (
 		<section className={styles.characters} onClick={changeModalCharacter}>
 			{characters &&

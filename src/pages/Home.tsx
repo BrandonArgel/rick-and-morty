@@ -9,7 +9,7 @@ const Characters = React.lazy(() => import("components/Characters"));
 const Particles = React.lazy(() => import("components/Particles"));
 
 const Home = () => {
-	const [characters, setCharacters] = React.useState([]);
+	const [characters, setCharacters] = React.useState(Array(20).fill({}));
 	const [character, setCharacter] = React.useState({} as any);
 	const [info, setInfo] = React.useState({} as any);
 	const [error, setError] = React.useState("");
@@ -23,6 +23,7 @@ const Home = () => {
 	const [gender, setGender] = React.useState("");
 
 	const initialRequest = React.useCallback(async () => {
+		setCharacters(Array(20).fill({}));
 		setLoading(true);
 		setLastFocus(-1);
 
@@ -38,7 +39,6 @@ const Home = () => {
 		setInfo(data);
 		setPage(p);
 		setError(error);
-
 		setLoading(false);
 	}, [page, search, status, species, gender]);
 
@@ -74,10 +74,6 @@ const Home = () => {
 		setModal(true);
 	};
 
-	const handleChangePage = (p: number) => {
-		setPage(p);
-	};
-
 	return (
 		<main>
 			<Hero />
@@ -91,28 +87,23 @@ const Home = () => {
 				gender={gender}
 				setGender={setGender}
 			/>
-			{loading ? (
-				<div className={styles.loader}>
-					<Loader />
-				</div>
-			) : (
-				<React.Suspense fallback={<Loader />}>
-					{error && (
-						<div className={styles.error}>
-							<p aria-live="assertive">{error}</p>
-						</div>
-					)}
-					<Particles />
-					<Characters
-						characters={characters}
-						changeModalCharacter={changeModalCharacter}
-						lastFocus={lastFocus}
-						modal={modal}
-					/>
-					<Pagination loading={loading} info={info} page={page} setPage={handleChangePage} />
-					<Modal open={modal} close={() => setModal(false)} character={character} />
-				</React.Suspense>
-			)}
+			<React.Suspense fallback={<Loader />}>
+				{error && (
+					<div className={styles.error}>
+						<p aria-live="assertive">{error}</p>
+					</div>
+				)}
+				<Particles />
+				<Characters
+					characters={characters}
+					changeModalCharacter={changeModalCharacter}
+					lastFocus={lastFocus}
+					modal={modal}
+					loading={loading}
+				/>
+				<Pagination loading={loading} info={info} page={page} setPage={setPage} />
+				<Modal open={modal} close={() => setModal(false)} character={character} />
+			</React.Suspense>
 		</main>
 	);
 };

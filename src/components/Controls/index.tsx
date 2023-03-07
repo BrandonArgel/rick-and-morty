@@ -1,4 +1,4 @@
-import { Dropdown, Search } from "components";
+import { Button, Dropdown, Search } from "components";
 import styles from "./index.module.scss";
 
 interface Props {
@@ -22,27 +22,35 @@ const Controls: React.FC<Props> = ({
 	gender,
 	setGender,
 }) => {
+	const handleReset = () => {
+		setSearch("");
+		setStatus("");
+		setSpecies("");
+		setGender("");
+	};
+
 	return (
 		<section className={styles.controls}>
 			<Search placeholder="Search a character..." setValue={setSearch} value={search} />
 			<Dropdown
 				title="Status..."
-				options={["Alive", "Dead", "Unknown"]}
+				options={["alive", "dead", "unknown"]}
 				setValue={setStatus}
 				value={status}
 			/>
 			<Dropdown
 				title="Species..."
-				options={["Human", "Humanoid", "Alien", "Unknown"]}
+				options={["human", "humanoid", "alien", "unknown"]}
 				setValue={setSpecies}
 				value={species}
 			/>
 			<Dropdown
 				title="Gender..."
-				options={["Female", "Male", "Genderless", "Unknown"]}
+				options={["female", "male", "genderless", "unknown"]}
 				setValue={setGender}
 				value={gender}
 			/>
+			<Button onClick={handleReset}>Reset</Button>
 		</section>
 	);
 };

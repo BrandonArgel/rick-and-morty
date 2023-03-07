@@ -1,3 +1,4 @@
+import * as React from 'react'
 import styles from './index.module.scss'
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
   multiSelect?: boolean;
 }
 
-const Dropdown = ({ title = '', options = [], setValue, value, multiSelect = false }: Props) => {
+const Dropdown = ({ title = '', options = [], setValue, value }: Props) => {
   return (
     <select title={title} className={styles.dropdown} onChange={(e) => setValue(e.target.value.toLowerCase())} value={value}>
       {title && <option value="">{title}</option>}
