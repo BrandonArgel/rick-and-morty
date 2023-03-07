@@ -1,6 +1,6 @@
 import * as React from "react";
 import { CharacterModel } from "models";
-import { lazyLoading } from "hooks";
+import { lazyLoading } from "utils";
 import imgError from "assets/images/error.jpg";
 import styles from "./index.module.scss";
 

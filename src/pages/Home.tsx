@@ -1,8 +1,7 @@
 import * as React from "react";
 import { Controls, Hero, Modal, Pagination } from "components";
 import { useLocalStorage } from "hooks";
-import getCharacters from "utils/getCharacters";
-import getDimension from "utils/getDimension";
+import { getDimension, getCharacters } from "utils";
 import { Loader } from "assets/icons";
 import imgError from "assets/images/error.jpg";
 import styles from "./Home.module.scss";
@@ -18,12 +17,14 @@ const Home = () => {
 	const [loading, setLoading] = React.useState(false);
 	const [modal, setModal] = React.useState(false);
 	const [lastFocus, setLastFocus] = React.useState(-1);
+	
+	// Save items in LocalStorage
 	const [page, setPage] = useLocalStorage("page", 1);
 	const [search, setSearch] = useLocalStorage("search", "");
 	const [status, setStatus] = useLocalStorage("status", "");
 	const [species, setSpecies] = useLocalStorage("species", "");
 	const [gender, setGender] = useLocalStorage("gender", "");
-
+	
 	const initialRequest = React.useCallback(async () => {
 		setCharacters(Array(20).fill({}));
 		setLoading(true);
@@ -42,11 +43,11 @@ const Home = () => {
 		setPage(p);
 		setError(error);
 		setLoading(false);
-	}, [page, search, status, species, gender]);
+	}, [page, search, status, species, gender]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	React.useEffect(() => {
 		initialRequest();
-	}, [page, search, status, species, gender, initialRequest]);
+	}, [initialRequest]);
 
 	const getCharacterDimension = async (url: string) => {
 		const dimension = await getDimension({ url });
