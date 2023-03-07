@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import { Close } from "assets/icons";
 import { CharacterModel } from "models";
 import styles from "./index.module.scss";
@@ -9,20 +10,25 @@ interface Props {
 	close: () => void;
 }
 
-const Modal = ({ character: {id, image, name, status, species, type, location, dimension, originName}, open, close }: Props) => {
+const Modal = ({
+	character: { id, image, name, status, species, type, location, dimension, originName },
+	open,
+	close,
+}: Props) => {
 	const asideRef = React.useRef<HTMLButtonElement>(null);
 
 	React.useEffect(() => {
 		if (open) setTimeout(() => asideRef.current?.focus(), 100);
 	}, [open]);
 
-	return (
+	return ReactDOM.createPortal(
 		<>
 			<button
 				className={`${styles.overlay} ${open ? styles.visible : ""}`}
 				onClick={() => close()}
 				aria-hidden={!open}
 				tabIndex={-1}
+				type="button"
 			/>
 			<aside
 				ref={asideRef}
@@ -40,13 +46,7 @@ const Modal = ({ character: {id, image, name, status, species, type, location, d
 							<h2>{name}</h2>
 							<p>
 								<strong>Status:</strong> {status}{" "}
-								<span>
-									{status === "Alive"
-										? "🟢"
-										: status === "Dead"
-										? "🔴"
-										: "⚪"}
-								</span>
+								<span>{status === "Alive" ? "🟢" : status === "Dead" ? "🔴" : "⚪"}</span>
 							</p>
 							<p>
 								<strong>Species:</strong> {species}
@@ -69,7 +69,8 @@ const Modal = ({ character: {id, image, name, status, species, type, location, d
 					</>
 				)}
 			</aside>
-		</>
+		</>,
+		document.getElementById("modal") as HTMLDivElement
 	);
 };
 
