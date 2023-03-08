@@ -12,7 +12,6 @@ const lazyLoading = (ref: React.RefObject<HTMLImageElement>) => {
       img.onload = () => {
         img.classList.add("show")
         img.parentElement?.classList.remove("skeleton");
-        console.log("loaded", img);
       };
 
       observer.unobserve(img);
