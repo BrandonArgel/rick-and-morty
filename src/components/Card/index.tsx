@@ -46,12 +46,13 @@ const Characters: React.FC<Props> = ({ character, changeModalCharacter, lastFocu
 			data-species={character?.species}
 		>
 			<img
+				className="hide"
 				data-src={character.image}
 				alt={character.name}
 				width={200}
 				height={200}
 				ref={imgRef}
-				src={imgError}
+				src={character.image || imgError}
 			/>
 			{character?.image && <p>{character.name}</p>}
 		</button>

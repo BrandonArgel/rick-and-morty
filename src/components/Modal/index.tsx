@@ -2,6 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Close } from "assets/icons";
 import { CharacterModel } from "models";
+import imgError from "assets/images/error.jpg";
 import styles from "./index.module.scss";
 
 interface Props {
@@ -41,7 +42,7 @@ const Modal = ({
 				</button>
 				{id && (
 					<>
-						<img src={image} alt={name} width={200} height={200} />
+						<img src={image || imgError} alt={name} width={200} height={200} />
 						<div>
 							<h2>{name}</h2>
 							<p>

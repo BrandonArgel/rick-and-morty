@@ -63,6 +63,12 @@ html {
   outline-offset: 3px;
 }
 
+.hide {
+  animation: fadeOut 0.3s ease-in-out forwards;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
 .show {
   animation: fadeIn 0.3s ease-in-out forwards;
   opacity: 1 !important;
@@ -75,11 +81,11 @@ html {
 }
 
 @keyframes bg-skeleton {
-	0% {
-		background-color: rgba($main-color, 0.1);
-	}
-	
-	100% {
-		background-color: rgba($main-color, 0.2);
-	}
+  0% {
+    background-color: rgba($main-color, 0.1);
+  }
+
+  100% {
+    background-color: rgba($main-color, 0.2);
+  }
 }
