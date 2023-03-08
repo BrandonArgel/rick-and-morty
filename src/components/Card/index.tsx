@@ -36,7 +36,7 @@ const Characters: React.FC<Props> = ({ character, changeModalCharacter, lastFocu
 			key={character.id}
 			className={`${styles.character} skeleton`}
 			data-id={character.id}
-			data-image={character?.image}
+			data-image={character?.image || imgError}
 			aria-label={`Ver detalles de ${character.name}`}
 			data-location={character?.location?.name}
 			data-name={character?.name}
@@ -52,7 +52,6 @@ const Characters: React.FC<Props> = ({ character, changeModalCharacter, lastFocu
 				width={200}
 				height={200}
 				ref={imgRef}
-				src={character.image || imgError}
 			/>
 			{character?.image && <p>{character.name}</p>}
 		</button>
