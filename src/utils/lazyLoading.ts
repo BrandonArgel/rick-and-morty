@@ -6,12 +6,13 @@ const lazyLoading = (ref: React.RefObject<HTMLImageElement>) => {
       if (!entry.isIntersecting) return;
       const img = entry.target as HTMLImageElement;
       const src = img.getAttribute("data-src") as string;
-      
+      if (!src) return;
       img.setAttribute("src", src);
 
       img.onload = () => {
         img.classList.add("show")
         img.parentElement?.classList.remove("skeleton");
+        console.log("loaded", img);
       };
 
       observer.unobserve(img);
