@@ -59,16 +59,15 @@
 
   .suggestions {
     background: variables.$gradient;
-    position: absolute;
+    border-radius: 1rem;
+    box-shadow: 0 1rem 1rem 1rem rgba(variables.$bg-color, 0.4);
     left: 0;
-    box-shadow: 0 1rem 1rem 1rem rgba(variables.$bg-color, 0.6);
-    overflow: auto;
     max-height: 20rem;
-    overflow-y: scroll;
-    overscroll-behavior-y: contain;
-    scroll-snap-type: y proximity;
+    overflow: auto;
+    position: absolute;
     top: calc(100% + 1rem);
-    width: 100%;
+    transform: translate(-0.1rem, 0);
+    width: calc(100% + 0.2rem);
     z-index: 1;
 
     .error {
@@ -87,13 +86,14 @@
       font-size: variables.$fz-md;
       padding: 1rem 2rem;
       text-align: left;
-      scroll-snap-align: center;
       width: 100%;
 
       &:hover,
       &:active,
       &:focus {
         background: rgba(variables.$main-color, 0.1);
+        font-weight: bold;
+        outline: none;
       }
     }
   }

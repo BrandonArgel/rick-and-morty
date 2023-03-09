@@ -12,7 +12,7 @@ interface Props {
 const Pagination: React.FC<Props> = ({ loading, page, setPage, info }) => {
 	return (
 		<div className={styles.pagination}>
-			<Button onClick={() => setPage(page - 1)} disabled={!info?.prev || loading}>
+			<Button type="button"  onClick={() => setPage(page - 1)} disabled={!info?.prev || loading}>
 				Prev
 			</Button>
 			<span>
@@ -25,7 +25,7 @@ const Pagination: React.FC<Props> = ({ loading, page, setPage, info }) => {
 				/>{" "}
 				/ {info?.pages || 0}
 			</span>
-			<Button onClick={() => setPage(page + 1)} disabled={!info?.next || loading}>
+			<Button type="button" onClick={() => setPage(page + 1)} disabled={!info?.next || loading}>
 				Next
 			</Button>
 		</div>

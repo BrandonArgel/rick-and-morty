@@ -36,15 +36,19 @@ const Controls: React.FC<Props> = ({
 
 	const getCharacterNames = React.useCallback(async () => {
 		if (!s) setNames(characters.map((c: any) => c.name));
-		setLoading(true);
 		const { names, error } = await getNames(s);
+		setLoading(false);
 		setNames(names);
 		setError(error);
-		setLoading(false);
 	}, [s]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	React.useEffect(() => {
-		getCharacterNames();
+		setLoading(true);
+		const timeoutId = setTimeout(() => {
+			getCharacterNames();
+		}, 500);
+
+		return () => clearTimeout(timeoutId);
 	}, [getCharacterNames]);
 
 	return (
@@ -77,7 +81,7 @@ const Controls: React.FC<Props> = ({
 				setValue={setGender}
 				value={gender}
 			/>
-			<Button onClick={reset}>Reset</Button>
+			<Button type="button" onClick={reset}>Reset</Button>
 		</section>
 	);
 };

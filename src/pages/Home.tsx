@@ -101,7 +101,7 @@ const Home = () => {
 				reset={handleReset}
 			/>
 			<React.Suspense fallback={<Loader />}>
-				{error && (
+				{!loading && error && (
 					<div className={styles.error}>
 						<img src={imgError} alt="Error" />
 						<p aria-live="assertive">{error}</p>

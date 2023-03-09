@@ -24,31 +24,47 @@ const Search = ({
 	loading,
 	error,
 }: Props) => {
-	const [focus, setFocus] = React.useState(false);
-
-	React.useEffect(() => {
-		setSearch(value);
-	}, [value]); // eslint-disable-line react-hooks/exhaustive-deps
+	const [display, setDisplay] = React.useState(false);
+	const wrapperRef = React.useRef<HTMLDivElement>(null);
 
 	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearch(e.target.value.toLowerCase());
 	};
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if (e.key === "Enter") {
-			setValue(search);
-			setFocus(false);
+		switch (e.key) {
+			case "Escape":
+				setDisplay(false);
+				break;
+			case "Enter":
+				setValue(search);
+				setDisplay(false);
+				break;
 		}
 	};
 
-	const handleFocus = () => {
-		setFocus(true);
+	React.useEffect(() => {
+		setSearch(value);
+	}, [value]); // eslint-disable-line react-hooks/exhaustive-deps
+
+	React.useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutside);
+
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+	const handleClick = () => {
+		if (display) return;
+		setDisplay(true);
 	};
 
-	const handleBlur = () => {
-		setTimeout(() => {
-			setFocus(false);
-		}, 200);
+	const handleClickOutside = (e: MouseEvent) => {
+		const { current: wrap } = wrapperRef;
+		if (wrap && !wrap.contains(e.target as Node)) {
+			setDisplay(false);
+		}
 	};
 
 	return (
@@ -58,22 +74,22 @@ const Search = ({
 				type="text"
 				placeholder={placeholder}
 				value={search}
-				onBlur={handleBlur}
 				onChange={handleSearch}
 				onKeyDown={handleKeyDown}
-				onFocus={handleFocus}
+				onFocus={handleClick}
+				onClick={handleClick}
 			/>
 			<label htmlFor="search" onClick={() => setValue(search)}>
 				<SearchIcon />
 			</label>
-			{focus && (
-				<div className={styles.suggestions}>
+			{display && (
+				<div ref={wrapperRef} className={styles.suggestions}>
 					{error ? (
 						<p className={styles.error}>{error}</p>
 					) : loading ? (
 						<Loader />
 					) : (
-						Array.from(new Set(names))
+						names
 							.filter((name) => {
 								return name.toLowerCase().includes(search);
 							})
