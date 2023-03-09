@@ -1,0 +1,52 @@
+@use "styles/variables.scss";
+
+.footer {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1rem;
+  justify-content: space-around;
+  padding: 10rem 2rem 2rem;
+  margin: auto auto 0;
+  max-width: 100rem;
+  width: 100%;
+
+  &__rights {
+    color: variables.$secondary-text-color;
+    font-size: variables.$fz-sm;
+    text-align: center;
+
+    a {
+      color: variables.$main-color;
+    }
+  }
+
+  &__social {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    width: 30rem;
+
+    a {
+      svg {
+        border-radius: 50%;
+        height: 3rem;
+        fill: variables.$secondary-text-color;
+        transition: all 0.2s ease-in-out;
+        width: 3rem;
+        will-change: filter, transform;
+      }
+
+      &:hover,
+      &:active,
+      &:focus {
+        outline: none;
+
+        svg {
+          fill: variables.$main-color;
+          transform: scale(1.15);
+        }
+      }
+    }
+  }
+}

@@ -100,8 +100,8 @@ const Search = ({
 								<button
 									key={i}
 									onClick={() => {
-										setValue(name);
 										setSearch(name);
+										setValue(name);
 									}}
 								>
 									<p>{name}</p>

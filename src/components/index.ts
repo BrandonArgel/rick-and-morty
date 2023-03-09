@@ -3,6 +3,7 @@ export { default as Card } from './Card';
 export { default as Characters } from './Characters';
 export { default as Controls } from './Controls';
 export { default as Dropdown } from './Dropdown';
+export { default as Footer } from './Footer';
 export { default as Hero } from './Hero';
 export { default as Input } from './Input';
 export { default as Loader } from './Loader';

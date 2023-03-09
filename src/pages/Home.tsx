@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Controls, Hero, Modal, Pagination, Loader } from "components";
+import { Controls, Footer, Hero, Modal, Pagination, Loader } from "components";
 import { useLocalStorage } from "hooks";
 import { getDimension, getCharacters } from "utils";
 import { CharacterModel, InfoModel } from "models";
@@ -141,6 +141,7 @@ const Home = () => {
 					loading={loading}
 				/>
 				<Pagination loading={loading} info={info} page={page} setPage={setPage} />
+				<Footer />
 				<Modal open={modal} close={() => setModal(false)} character={character} />
 			</React.Suspense>
 		</main>

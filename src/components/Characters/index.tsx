@@ -19,7 +19,7 @@ const Characters: React.FC<CharactersProps> = ({
 	loading
 }) => {
 	return (
-		<section className={styles.characters} onClick={changeModalCharacter}>
+		<section id="characters" className={styles.characters} onClick={changeModalCharacter}>
 			{characters &&
 				characters.map((character, i) => (
 					<Card
