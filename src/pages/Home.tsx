@@ -2,16 +2,36 @@ import * as React from "react";
 import { Controls, Hero, Modal, Pagination, Loader } from "components";
 import { useLocalStorage } from "hooks";
 import { getDimension, getCharacters } from "utils";
+import { CharacterModel, InfoModel } from "models";
 import imgError from "assets/images/error.jpg";
 import styles from "./Home.module.scss";
 
 const Characters = React.lazy(() => import("components/Characters"));
 const Particles = React.lazy(() => import("components/Particles"));
 
+const baseCharacter: CharacterModel = {
+	id: 1,
+	gender: "",
+	name: "",
+	species: "",
+	status: "",
+	image: "",
+	location: {
+		name: "",
+	},
+	origin: {
+		name: "",
+		url: "",
+	},
+	type: "",
+};
+
 const Home = () => {
-	const [characters, setCharacters] = React.useState(Array(20).fill({}));
-	const [character, setCharacter] = React.useState({} as any);
-	const [info, setInfo] = React.useState({} as any);
+	const [characters, setCharacters] = React.useState(
+		Array(20).fill(baseCharacter as CharacterModel)
+	);
+	const [character, setCharacter] = React.useState(baseCharacter as CharacterModel);
+	const [info, setInfo] = React.useState({} as InfoModel);
 	const [error, setError] = React.useState("");
 	const [loading, setLoading] = React.useState(false);
 	const [modal, setModal] = React.useState(false);
@@ -25,12 +45,12 @@ const Home = () => {
 	const [gender, setGender] = useLocalStorage("gender", "");
 
 	const initialRequest = React.useCallback(async () => {
-		setCharacters(Array(20).fill({}));
+		setCharacters(Array(20).fill(baseCharacter as CharacterModel));
 		setLoading(true);
 		setLastFocus(-1);
 
-		const { data, results, error, p } = await getCharacters({
-			page,
+		const { info, results, error, p } = await getCharacters({
+			page: page,
 			search,
 			status,
 			species,
@@ -38,12 +58,11 @@ const Home = () => {
 		});
 
 		setCharacters(results);
-		setInfo(data);
+		setInfo(info);
 		setPage(p || 1);
 		setError(error);
 		setLoading(false);
 	}, [page, search, status, species, gender]); // eslint-disable-line react-hooks/exhaustive-deps
-
 
 	React.useEffect(() => {
 		initialRequest();
@@ -51,26 +70,32 @@ const Home = () => {
 
 	const getCharacterDimension = async (url: string) => {
 		const dimension = await getDimension({ url });
-		setCharacter((prevState: any) => ({ ...prevState, dimension }));
+		setCharacter((prevState: CharacterModel) => ({ ...prevState, dimension }));
 	};
 
 	const changeModalCharacter = (e: React.SyntheticEvent<EventTarget>) => {
 		if (!(e.target instanceof HTMLButtonElement)) {
 			return;
 		}
-		const { id, image, location, name, originName, originUrl, status, species } = e.target.dataset;
+		const { id, image, location, name, originName, originUrl, status, species, gender, type } =
+			e.target.dataset;
 		setLastFocus(Number(id));
-		setCharacter({
-			id,
-			image,
-			location,
-			name,
-			originName,
-			status,
-			species,
-		});
+		const c: CharacterModel = {
+			id: Number(id),
+			image: image || "",
+			location: {
+				name: location || "",
+			},
+			name: name || "",
+			originName: originName || "",
+			status: status || "",
+			species: species || "",
+			gender: gender || "",
+			type: type || "",
+		};
+		setCharacter(c);
 		if (!originUrl) {
-			setCharacter((prevState: any) => ({ ...prevState, dimension: originName }));
+			setCharacter((prevState: CharacterModel) => ({ ...prevState, dimension: originName }));
 		} else {
 			getCharacterDimension(originUrl);
 		}

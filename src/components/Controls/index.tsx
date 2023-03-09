@@ -1,5 +1,6 @@
 import * as React from "react";
-import { getNames } from "utils";
+import { getSuggestions } from "utils";
+import { CharacterModel, CharacterSearchModel } from "models";
 import { Button, Dropdown, Search } from "components";
 
 import styles from "./index.module.scss";
@@ -13,7 +14,7 @@ interface Props {
 	setSpecies: React.Dispatch<React.SetStateAction<string>>;
 	gender: string;
 	setGender: React.Dispatch<React.SetStateAction<string>>;
-	characters: any[];
+	characters: CharacterModel[];
 	reset: () => void;
 }
 
@@ -29,16 +30,16 @@ const Controls: React.FC<Props> = ({
 	characters,
 	reset,
 }) => {
-	const [names, setNames] = React.useState(Array(20).fill(""));
+	const [suggestions, setSuggestions] = React.useState(Array(20).fill({ name: "", image: "" }));
 	const [loading, setLoading] = React.useState(false);
 	const [error, setError] = React.useState("");
 	const [s, setS] = React.useState(search);
 
 	const getCharacterNames = React.useCallback(async () => {
-		if (!s) setNames(characters.map((c: any) => c.name));
-		const { names, error } = await getNames(s);
+		if (!s) setSuggestions(characters.map((c: CharacterSearchModel) => ({ name: c.name, image: c.image })));
+		const { suggestions, error } = await getSuggestions(s);
 		setLoading(false);
-		setNames(names);
+		setSuggestions(suggestions);
 		setError(error);
 	}, [s]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -54,7 +55,7 @@ const Controls: React.FC<Props> = ({
 	return (
 		<section className={styles.controls}>
 			<Search
-				names={names}
+				suggestions={suggestions}
 				placeholder="Search a character..."
 				setValue={setSearch}
 				value={search}
@@ -81,7 +82,9 @@ const Controls: React.FC<Props> = ({
 				setValue={setGender}
 				value={gender}
 			/>
-			<Button type="button" onClick={reset}>Reset</Button>
+			<Button type="button" onClick={reset}>
+				Reset
+			</Button>
 		</section>
 	);
 };

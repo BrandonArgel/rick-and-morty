@@ -31,8 +31,9 @@ const Characters: React.FC<Props> = ({ character, changeModalCharacter, lastFocu
 	}, [lastFocus, modal]);
 
 	return (
+		
 		<button
-			id={`character-${character.id}`}
+		  id={`character-${character.id}`}
 			key={character.id}
 			className={`${styles.character} skeleton`}
 			data-id={character.id}
@@ -44,6 +45,8 @@ const Characters: React.FC<Props> = ({ character, changeModalCharacter, lastFocu
 			data-origin-url={character?.origin?.url}
 			data-status={character?.status}
 			data-species={character?.species}
+			data-type={character?.type}
+			data-gender={character?.gender}
 		>
 			<img
 				className="hide"

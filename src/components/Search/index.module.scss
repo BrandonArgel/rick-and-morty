@@ -63,7 +63,7 @@
     box-shadow: 0 1rem 1rem 1rem rgba(variables.$bg-color, 0.4);
     left: 0;
     max-height: 20rem;
-    overflow: auto;
+    overflow-y: scroll;
     position: absolute;
     top: calc(100% + 1rem);
     transform: translate(-0.1rem, 0);
@@ -78,13 +78,15 @@
     }
 
     button {
+      align-items: center;
       background: none;
       border: none;
       color: variables.$main-color;
       cursor: pointer;
-      display: block;
-      font-size: variables.$fz-md;
-      padding: 1rem 2rem;
+      display: flex;
+      font-size: variables.$fz-lg;
+      justify-content: space-between;
+      padding: 0.5rem 2rem;
       text-align: left;
       width: 100%;
 
@@ -94,6 +96,12 @@
         background: rgba(variables.$main-color, 0.1);
         font-weight: bold;
         outline: none;
+      }
+
+      img {
+        border-radius: 0.5rem;
+        height: 4rem;
+        width: 4rem;
       }
     }
   }

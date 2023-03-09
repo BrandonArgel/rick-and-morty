@@ -12,7 +12,7 @@ interface Props {
 }
 
 const Modal = ({
-	character: { id, image, name, status, species, type, location, dimension, originName },
+	character: { id, image, name, status, species, type, gender, location, dimension, originName },
 	open,
 	close,
 }: Props) => {
@@ -50,6 +50,9 @@ const Modal = ({
 								<span>{status === "Alive" ? "🟢" : status === "Dead" ? "🔴" : "⚪"}</span>
 							</p>
 							<p>
+								<strong>Gender:</strong> {gender}
+							</p>
+							<p>
 								<strong>Species:</strong> {species}
 							</p>
 							{type && (
@@ -58,7 +61,7 @@ const Modal = ({
 								</p>
 							)}
 							<p>
-								<strong>Location:</strong> {location}
+								<strong>Location:</strong> {location?.name}
 							</p>
 							<p>
 								<strong>Origin:</strong> {originName}

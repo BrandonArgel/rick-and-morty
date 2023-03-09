@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Loader } from "components";
 import { SearchIcon } from "assets/icons";
+import { CharacterSearchModel } from "models";
 import styles from "./index.module.scss";
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
 	search: string;
 	setSearch: (value: string) => void;
 	placeholder?: string;
-	names: string[];
+	suggestions: CharacterSearchModel[];
 	loading: boolean;
 	error?: string;
 }
@@ -20,7 +21,7 @@ const Search = ({
 	setValue,
 	search,
 	setSearch,
-	names,
+	suggestions,
 	loading,
 	error,
 }: Props) => {
@@ -28,6 +29,7 @@ const Search = ({
 	const wrapperRef = React.useRef<HTMLDivElement>(null);
 
 	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (!display) setDisplay(true);
 		setSearch(e.target.value.toLowerCase());
 	};
 
@@ -55,7 +57,7 @@ const Search = ({
 		};
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-	const handleClick = () => {
+	const handleDisplaySuggestions = () => {
 		if (display) return;
 		setDisplay(true);
 	};
@@ -76,8 +78,8 @@ const Search = ({
 				value={search}
 				onChange={handleSearch}
 				onKeyDown={handleKeyDown}
-				onFocus={handleClick}
-				onClick={handleClick}
+				onFocus={handleDisplaySuggestions}
+				onClick={handleDisplaySuggestions}
 			/>
 			<label htmlFor="search" onClick={() => setValue(search)}>
 				<SearchIcon />
@@ -89,11 +91,12 @@ const Search = ({
 					) : loading ? (
 						<Loader />
 					) : (
-						names
-							.filter((name) => {
+						suggestions.length > 0 &&
+						suggestions
+							.filter(({ name }) => {
 								return name.toLowerCase().includes(search);
 							})
-							.map((name, i) => (
+							.map(({ name, image }, i) => (
 								<button
 									key={i}
 									onClick={() => {
@@ -101,7 +104,8 @@ const Search = ({
 										setSearch(name);
 									}}
 								>
-									{name}
+									<p>{name}</p>
+									<img src={image} alt={name} />
 								</button>
 							))
 					)}

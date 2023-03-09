@@ -1,4 +1,9 @@
-
+import { InfoModel } from "./InfoModel";
+export interface RequestModel {
+  info: InfoModel;
+  results: CharacterModel[];
+  error?: string;
+}
 export interface CharacterModel {
   id: number;
   gender: string;
@@ -9,11 +14,16 @@ export interface CharacterModel {
   location: {
     name: string;
   };
-  origin: {
+  origin?: {
     name: string;
     url: string;
   };
   type: string;
   dimension?: string;
   originName?: string;
+}
+
+export interface CharacterSearchModel {
+  name: string;
+  image: string;
 }

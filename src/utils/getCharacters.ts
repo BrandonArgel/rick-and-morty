@@ -1,3 +1,5 @@
+import { CharacterModel, CharacterSearchModel, InfoModel } from "models";
+
 const API = 'https://rickandmortyapi.com/api/character';
 
 interface Props {
@@ -8,22 +10,26 @@ interface Props {
   gender?: string;
 }
 
-export const getCharacters = async ({ search, page = 1, status, species, gender }: Props): Promise<any> => {
-  const query = `page=${page}&name=${search}&status=${status}&species=${species}&gender=${gender}`
-  const { info, results, error } = await fetch(`${API}?${query}`).then(res => res.json()).catch((e) => console.error(`Back to page 1: ${e}`))
-  if (error && page !== 1) {
-    const { info, results, error } = await getCharacters({ page: 1, search, status, species, gender });
-
-    return { data: info, results: results, error: error, page: 1 }
-  }
-  return { data: info, results: results, error: error, p: page || 1 }
+interface getCharactersInterface {
+  info: InfoModel;
+  results: CharacterModel[];
+  error: string;
+  p: number;
 }
 
-export const getNames = async (search: string): Promise<any> => {
+export const getCharacters = async ({ search, page = 1, status, species, gender }: Props): Promise<getCharactersInterface> => {
+  const query = `page=${page}&name=${search}&status=${status}&species=${species}&gender=${gender}`
+  const { info, results, error } = await fetch(`${API}?${query}`).then(res => res.json()).catch((e) => console.error(`Back to page 1: ${e}`))
+  return { info: info, results: results, error: error, p: error ? 1 : page }
+}
+
+interface getSuggestionsInterface {
+  suggestions: CharacterSearchModel[];
+  error: string;
+}
+
+export const getSuggestions = async (search: string): Promise<getSuggestionsInterface> => {
   const { results, error } = await fetch(`${API}?name=${search}`).then(res => res.json().catch((e) => console.error(`Error: ${e}`)))
-  if (results) {
-    const names = results.map((c: any) => c.name)
-    return { names, error }
-  }
-  return { names: [], error }
+  
+  return { suggestions: results ? results.map((c: CharacterSearchModel) => ({ name: c.name, image: c.image })) : [], error }
 }
