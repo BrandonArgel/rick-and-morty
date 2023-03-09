@@ -4,14 +4,17 @@
   align-items: center;
   background: transparent;
   border: 1px solid variables.$main-color;
-  border-radius: 2rem;
+  border-radius: 1rem;
   box-shadow: 0 0 1rem 0 variables.$main-color;
   display: flex;
+  position: relative;
   transition: all 0.3s ease-in-out;
   width: 100%;
   will-change: box-shadow;
 
-  &:hover, &:active, &:focus {
+  &:hover,
+  &:active,
+  &:focus {
     box-shadow: 0 0 1rem 0.3rem variables.$main-color;
   }
 
@@ -51,6 +54,47 @@
       font: variables.$fz-md variables.$font;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+  }
+
+  .suggestions {
+    background: variables.$gradient;
+    position: absolute;
+    left: 0;
+    box-shadow: 0 1rem 1rem 1rem rgba(variables.$bg-color, 0.6);
+    overflow: auto;
+    max-height: 20rem;
+    overflow-y: scroll;
+    overscroll-behavior-y: contain;
+    scroll-snap-type: y proximity;
+    top: calc(100% + 1rem);
+    width: 100%;
+    z-index: 1;
+
+    .error {
+      color: variables.$error;
+      font: variables.$fz-md variables.$font;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+
+    button {
+      background: none;
+      border: none;
+      color: variables.$main-color;
+      cursor: pointer;
+      display: block;
+      font-size: variables.$fz-md;
+      padding: 1rem 2rem;
+      text-align: left;
+      scroll-snap-align: center;
+      width: 100%;
+
+      &:hover,
+      &:active,
+      &:focus {
+        background: rgba(variables.$main-color, 0.1);
+      }
     }
   }
 }

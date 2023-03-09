@@ -1,0 +1,11 @@
+@use "styles/variables.scss";
+
+.loader {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
+  svg {
+    fill: variables.$main-color;
+  }
+}

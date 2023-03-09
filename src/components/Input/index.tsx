@@ -13,9 +13,9 @@ interface Props {
 const Input = ({ defaultValue = 1, label = "", max, min = 1, setValue, type }: Props) => {
 	const [page, setPage] = React.useState(defaultValue);
 
-  React.useEffect(() => {
-    setPage(defaultValue);
-  }, [defaultValue]);
+	React.useEffect(() => {
+		setPage(defaultValue);
+	}, [defaultValue]);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (+e.target.value > max) {
@@ -27,11 +27,15 @@ const Input = ({ defaultValue = 1, label = "", max, min = 1, setValue, type }: P
 		}
 	};
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      setValue(page);
-    }
-  };
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === "Enter") {
+			setValue(page);
+		}
+	};
+
+	const handleOnBlur = () => {
+		setValue(page);
+	};
 
 	return (
 		<label className={styles.label}>
@@ -40,8 +44,9 @@ const Input = ({ defaultValue = 1, label = "", max, min = 1, setValue, type }: P
 				className={styles.input}
 				min={min}
 				max={max}
+				onBlur={handleOnBlur}
 				onChange={handleChange}
-        onKeyDown={handleKeyDown}
+				onKeyDown={handleKeyDown}
 				type={type}
 				value={page}
 			/>

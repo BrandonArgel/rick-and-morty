@@ -1,4 +1,4 @@
-const API = 'https://rickandmortyapi.com/api/character/';
+const API = 'https://rickandmortyapi.com/api/character';
 
 interface Props {
   page: number;
@@ -16,5 +16,14 @@ export const getCharacters = async ({ search, page = 1, status, species, gender 
 
     return { data: info, results: results, error: error, page: 1 }
   }
-  return { data: info, results: results, error: error, p: page }
+  return { data: info, results: results, error: error, p: page || 1 }
+}
+
+export const getNames = async (search: string): Promise<any> => {
+  const { results, error } = await fetch(`${API}?name=${search}`).then(res => res.json().catch((e) => console.error(`Error: ${e}`)))
+  if (results) {
+    const names = results.map((c: any) => c.name)
+    return { names, error }
+  }
+  return { names: [], error }
 }

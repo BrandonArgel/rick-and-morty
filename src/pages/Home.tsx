@@ -1,8 +1,7 @@
 import * as React from "react";
-import { Controls, Hero, Modal, Pagination } from "components";
+import { Controls, Hero, Modal, Pagination, Loader } from "components";
 import { useLocalStorage } from "hooks";
 import { getDimension, getCharacters } from "utils";
-import { Loader } from "assets/icons";
 import imgError from "assets/images/error.jpg";
 import styles from "./Home.module.scss";
 
@@ -17,14 +16,14 @@ const Home = () => {
 	const [loading, setLoading] = React.useState(false);
 	const [modal, setModal] = React.useState(false);
 	const [lastFocus, setLastFocus] = React.useState(-1);
-	
+
 	// Save items in LocalStorage
 	const [page, setPage] = useLocalStorage("page", 1);
 	const [search, setSearch] = useLocalStorage("search", "");
 	const [status, setStatus] = useLocalStorage("status", "");
 	const [species, setSpecies] = useLocalStorage("species", "");
 	const [gender, setGender] = useLocalStorage("gender", "");
-	
+
 	const initialRequest = React.useCallback(async () => {
 		setCharacters(Array(20).fill({}));
 		setLoading(true);
@@ -40,10 +39,11 @@ const Home = () => {
 
 		setCharacters(results);
 		setInfo(data);
-		setPage(p);
+		setPage(p || 1);
 		setError(error);
 		setLoading(false);
 	}, [page, search, status, species, gender]); // eslint-disable-line react-hooks/exhaustive-deps
+
 
 	React.useEffect(() => {
 		initialRequest();
@@ -97,6 +97,7 @@ const Home = () => {
 				setSpecies={setSpecies}
 				gender={gender}
 				setGender={setGender}
+				characters={characters}
 				reset={handleReset}
 			/>
 			<React.Suspense fallback={<Loader />}>

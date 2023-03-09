@@ -1,16 +1,5 @@
 @use "styles/variables.scss";
 
-.loader {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
-
-  svg {
-    fill: variables.$main-color;
-  }
-}
-
 .error {
   align-items: center;
   display: flex;
