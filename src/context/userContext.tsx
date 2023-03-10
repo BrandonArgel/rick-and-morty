@@ -26,21 +26,16 @@ const UserContext = createContext({
 	setFavorite: (v: CharacterModel) => {},
 	removeFavorite: (v: CharacterModel) => {},
 	character: baseCharacter as CharacterModel,
-	setCharacter: (v: CharacterModel) => {},
 	characters: [] as CharacterModel[],
-	setCharacters: (v: CharacterModel[]) => {},
 	info: {} as InfoModel,
 	error: "",
 	loading: false,
 	lastFocus: -1,
-	setLastFocus: (v: number) => {},
 	modal: false,
 	setModal: (v: boolean) => {},
 	changeModalCharacter: (e: React.SyntheticEvent<EventTarget>) => {},
 	suggestions: [] as CharacterSearchModel[],
-	setSuggestions: (v: CharacterSearchModel[]) => {},
 	suggestionsError: "",
-	setSuggestionsError: (v: string) => {},
 	suggestionsLoading: false,
 	setSuggestionsLoading: (v: boolean) => {},
 	handleGetSuggestions: () => {},
@@ -62,7 +57,8 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
 	const [suggestionsError, setSuggestionsError] = useState("");
 	const [suggestionsLoading, setSuggestionsLoading] = useState(false);
 	const [favorites, setFavorites] = useLocalStorage("favorite_characters", []);
-	const { page, search, status, species, gender, setPage, newSearch, setNewSearch } = useContext(FiltersContext);
+	const { page, search, status, species, gender, setPage, newSearch, setNewSearch } =
+		useContext(FiltersContext);
 
 	const addFavorite = (character: CharacterModel) => {
 		setFavorites([...favorites, character]);
@@ -78,19 +74,21 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
 		setLastFocus(-1);
 
 		const { info, results, error, p } = await getCharacters({
-			page: page,
+			page,
 			search,
 			status,
 			species,
 			gender,
 		});
-
+		if (error) {
+			setError(error);
+			return;
+		}
 		setSuggestions(results.map((c: CharacterSearchModel) => ({ name: c.name, image: c.image })));
 
 		setCharacters(results);
 		setInfo(info);
 		setPage(p || 1);
-		setError(error);
 		setLoading(false);
 	};
 
@@ -103,7 +101,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
 	}, [initialRequest]);
 
 	const handleGetSuggestions = async () => {
-		if (!search && !suggestions.length) {
+		if (!newSearch && !suggestions.length) {
 			return;
 		}
 		const { suggestions: s, error: e } = await getSuggestions(newSearch);
@@ -153,21 +151,16 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
 				setFavorite: addFavorite,
 				removeFavorite: removeFavorite,
 				character: character,
-				setCharacter: setCharacter,
 				characters: characters,
-				setCharacters: setCharacters,
 				info: info,
 				error: error,
 				loading: loading,
 				lastFocus: lastFocus,
-				setLastFocus: setLastFocus,
 				modal: modal,
 				setModal: setModal,
 				changeModalCharacter: changeModalCharacter,
 				suggestions: suggestions,
-				setSuggestions: setSuggestions,
 				suggestionsError: suggestionsError,
-				setSuggestionsError: setSuggestionsError,
 				suggestionsLoading: suggestionsLoading,
 				setSuggestionsLoading: setSuggestionsLoading,
 				handleGetSuggestions: handleGetSuggestions,

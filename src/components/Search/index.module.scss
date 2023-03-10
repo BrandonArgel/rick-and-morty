@@ -7,6 +7,7 @@
   border-radius: 1rem;
   box-shadow: 0 0 1rem 0 variables.$main-color;
   display: flex;
+  justify-content: space-between;
   position: relative;
   transition: all 0.3s ease-in-out;
   width: 100%;
@@ -44,7 +45,7 @@
     overflow-x: hidden;
     padding: 1rem 1rem 1rem 2rem;
     text-overflow: ellipsis;
-    width: calc(100% - 4rem);
+    width: 100%;
     white-space: nowrap;
 
     &::-webkit-search-cancel-button {

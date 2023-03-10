@@ -1,17 +1,17 @@
 import * as React from "react";
 import { CharacterModel } from "models";
 import { lazyLoading } from "utils";
+import { HeartOutline, HeartFilled } from "assets/icons";
 import imgError from "assets/images/error.jpg";
 import styles from "./index.module.scss";
 
 interface Props {
 	character: CharacterModel;
-	changeModalCharacter: (e: React.SyntheticEvent<EventTarget>) => void;
 	lastFocus: number;
 	modal: boolean;
 }
 
-const Characters: React.FC<Props> = ({ character, changeModalCharacter, lastFocus, modal }) => {
+const Characters: React.FC<Props> = ({ character, lastFocus, modal }) => {
 	const imgRef = React.useRef<HTMLImageElement>(null);
 
 	React.useEffect(() => {

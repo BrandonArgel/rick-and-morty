@@ -16,7 +16,6 @@ const Controls = () => {
 		setNewSearch,
 	} = React.useContext(UserContext);
 	const {
-		search,
 		status,
 		species,
 		gender,
@@ -36,9 +35,8 @@ const Controls = () => {
 		setNewSearch(name);
 	};
 
-
 	React.useEffect(() => {
-		if (suggestions.some((s: CharacterSearchModel) => s.name === search)) {
+		if (suggestions.some((s: CharacterSearchModel) => s.name === newSearch)) {
 			return;
 		}
 

@@ -24,7 +24,6 @@ const Characters: React.FC<CharactersProps> = ({
 				characters.map((character, i) => (
 					<Card
 						character={character}
-						changeModalCharacter={changeModalCharacter}
 						lastFocus={lastFocus}
 						modal={modal}
 						key={i}

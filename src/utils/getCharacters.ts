@@ -30,6 +30,6 @@ interface getSuggestionsInterface {
 
 export const getSuggestions = async (search: string): Promise<getSuggestionsInterface> => {
   const { results, error } = await fetch(`${API}?name=${search}`).then(res => res.json().catch((e) => console.error(`Error: ${e}`)))
-  
+
   return { suggestions: results ? results.map((c: CharacterSearchModel) => ({ name: c.name, image: c.image })) : [], error }
 }

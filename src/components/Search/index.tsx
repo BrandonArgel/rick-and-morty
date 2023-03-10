@@ -74,19 +74,19 @@ const Search = ({
 				onKeyDown={onKeyDown}
 			/>
 			{value && (
-				<button onClick={() => handleOnSearch("")} className={styles.reset}>
+				<button type="reset" onClick={() => handleOnSearch("")} className={styles.reset}>
 					<Close />
 				</button>
 			)}
 			<label htmlFor="search" onClick={() => handleOnSearch(value)}>
 				<SearchIcon />
 			</label>
-			{display && suggestions.length && (
+			{display && (
 				<div ref={wrapperRef} className={styles.suggestions}>
-					{error ? (
-						<p className={styles.error}>{error}</p>
-					) : loading ? (
+					{loading ? (
 						<Loader />
+					) : error ? (
+						<p className={styles.error}>{error}</p>
 					) : (
 						suggestions
 							.filter(({ name }) => {
