@@ -1,9 +1,11 @@
+@use "styles/variables.scss";
+
 .controls {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
   margin: 0 auto;
-  max-width: 100rem;
+  max-width: variables.$max-width;
   padding: 2rem 0;
   width: 100%;
 

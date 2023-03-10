@@ -1,53 +1,30 @@
 import * as React from "react";
 import { Loader } from "components";
-import { SearchIcon } from "assets/icons";
+import { SearchIcon, Close } from "assets/icons";
 import { CharacterSearchModel } from "models";
 import styles from "./index.module.scss";
 
 interface Props {
-	setValue: (value: string) => void;
-	value: string;
-	search: string;
-	setSearch: (value: string) => void;
+	value?: string;
 	placeholder?: string;
 	suggestions: CharacterSearchModel[];
 	loading: boolean;
-	error?: string;
+	error: string;
+	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	onSearch: (name: string) => void;
 }
 
 const Search = ({
 	value = "",
 	placeholder,
-	setValue,
-	search,
-	setSearch,
 	suggestions,
 	loading,
 	error,
+	onChange,
+	onSearch,
 }: Props) => {
 	const [display, setDisplay] = React.useState(false);
 	const wrapperRef = React.useRef<HTMLDivElement>(null);
-
-	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (!display) setDisplay(true);
-		setSearch(e.target.value.toLowerCase());
-	};
-
-	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		switch (e.key) {
-			case "Escape":
-				setDisplay(false);
-				break;
-			case "Enter":
-				setValue(search);
-				setDisplay(false);
-				break;
-		}
-	};
-
-	React.useEffect(() => {
-		setSearch(value);
-	}, [value]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	React.useEffect(() => {
 		document.addEventListener("mousedown", handleClickOutside);
@@ -55,10 +32,9 @@ const Search = ({
 		return () => {
 			document.removeEventListener("mousedown", handleClickOutside);
 		};
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [suggestions]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const handleDisplaySuggestions = () => {
-		if (display) return;
 		setDisplay(true);
 	};
 
@@ -69,41 +45,55 @@ const Search = ({
 		}
 	};
 
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (!display) setDisplay(true);
+		onChange(e);
+	};
+
+	const handleOnSearch = (name: string) => {
+		setDisplay(false);
+		onSearch(name);
+	};
+
+	const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === "Enter") {
+			handleOnSearch(value);
+		}
+	};
+
 	return (
 		<div className={styles.search}>
 			<input
 				autoComplete="off"
-				type="text"
+				type="search"
 				placeholder={placeholder}
-				value={search}
-				onChange={handleSearch}
-				onKeyDown={handleKeyDown}
+				value={value}
+				onChange={handleChange}
 				onFocus={handleDisplaySuggestions}
 				onClick={handleDisplaySuggestions}
+				onKeyDown={onKeyDown}
 			/>
-			<label htmlFor="search" onClick={() => setValue(search)}>
+			{value && (
+				<button onClick={() => handleOnSearch("")} className={styles.reset}>
+					<Close />
+				</button>
+			)}
+			<label htmlFor="search" onClick={() => handleOnSearch(value)}>
 				<SearchIcon />
 			</label>
-			{display && (
+			{display && suggestions.length && (
 				<div ref={wrapperRef} className={styles.suggestions}>
 					{error ? (
 						<p className={styles.error}>{error}</p>
 					) : loading ? (
 						<Loader />
 					) : (
-						suggestions.length > 0 &&
 						suggestions
 							.filter(({ name }) => {
-								return name.toLowerCase().includes(search);
+								return name.toLowerCase().includes(value.toLowerCase());
 							})
 							.map(({ name, image }, i) => (
-								<button
-									key={i}
-									onClick={() => {
-										setSearch(name);
-										setValue(name);
-									}}
-								>
+								<button key={i} onClick={() => handleOnSearch(name)}>
 									<p>{name}</p>
 									<img src={image} alt={name} />
 								</button>

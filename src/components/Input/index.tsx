@@ -2,41 +2,26 @@ import * as React from "react";
 import styles from "./index.module.scss";
 
 interface Props {
-	defaultValue?: number;
-	label?: string;
-	max: number;
+	value: number;
+	label: string;
+	max?: number;
 	min?: number;
-	setValue: (value: number) => void;
+	onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
 	type: string;
 }
 
-const Input = ({ defaultValue = 1, label = "", max, min = 1, setValue, type }: Props) => {
-	const [page, setPage] = React.useState(defaultValue);
-
-	React.useEffect(() => {
-		setPage(defaultValue);
-	}, [defaultValue]);
-
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (+e.target.value > max) {
-			setPage(max);
-		} else if (+e.target.value < min) {
-			setPage(min);
-		} else {
-			setPage(+e.target.value);
-		}
-	};
-
-	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if (e.key === "Enter") {
-			setValue(page);
-		}
-	};
-
-	const handleOnBlur = () => {
-		setValue(page);
-	};
-
+const Input = ({
+	value = 1,
+	label = "",
+	max,
+	min = 1,
+	type,
+	onBlur,
+	onChange,
+	onKeyDown,
+}: Props) => {
 	return (
 		<label className={styles.label}>
 			{label}
@@ -44,11 +29,11 @@ const Input = ({ defaultValue = 1, label = "", max, min = 1, setValue, type }: P
 				className={styles.input}
 				min={min}
 				max={max}
-				onBlur={handleOnBlur}
-				onChange={handleChange}
-				onKeyDown={handleKeyDown}
+				onBlur={onBlur}
+				onChange={onChange}
+				onKeyDown={onKeyDown}
 				type={type}
-				value={page}
+				value={value}
 			/>
 		</label>
 	);

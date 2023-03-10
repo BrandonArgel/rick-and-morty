@@ -31,9 +31,8 @@ const Characters: React.FC<Props> = ({ character, changeModalCharacter, lastFocu
 	}, [lastFocus, modal]);
 
 	return (
-		
 		<button
-		  id={`character-${character.id}`}
+			id={`character-${character.id}`}
 			key={character.id}
 			className={`${styles.character} skeleton`}
 			data-id={character.id}

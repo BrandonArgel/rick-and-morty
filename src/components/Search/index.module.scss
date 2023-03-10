@@ -20,6 +20,8 @@
 
   label {
     align-items: center;
+    background-color: variables.$main-color;
+    border-radius: 0 0.7rem 0.7rem 0;
     cursor: pointer;
     display: flex;
     height: 100%;
@@ -27,7 +29,7 @@
     width: 4rem;
 
     svg {
-      fill: variables.$main-color;
+      fill: variables.$main-text-color;
       height: 100%;
     }
   }
@@ -40,10 +42,14 @@
     font: variables.$fz-md variables.$font;
     height: 100%;
     overflow-x: hidden;
-    padding: 1rem 2rem;
+    padding: 1rem 1rem 1rem 2rem;
     text-overflow: ellipsis;
     width: calc(100% - 4rem);
     white-space: nowrap;
+
+    &::-webkit-search-cancel-button {
+      -webkit-appearance: none;
+    }
 
     &:focus {
       outline: none;
@@ -57,6 +63,21 @@
     }
   }
 
+  .reset {
+    background: none;
+    border: none;
+    height: variables.$fz-lg;
+    margin-right: 1rem;
+    width: variables.$fz-lg;
+
+    svg {
+      fill: variables.$main-color;
+      cursor: pointer;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
   .suggestions {
     background: variables.$gradient;
     border-radius: 1rem;
@@ -64,6 +85,7 @@
     left: 0;
     max-height: 20rem;
     overflow-y: scroll;
+    padding: 0.5rem 0;
     position: absolute;
     top: calc(100% + 1rem);
     transform: translate(-0.1rem, 0);

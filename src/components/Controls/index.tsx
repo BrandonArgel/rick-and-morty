@@ -1,68 +1,66 @@
 import * as React from "react";
-import { getSuggestions } from "utils";
-import { CharacterModel, CharacterSearchModel } from "models";
+import { FiltersContext, UserContext } from "context";
 import { Button, Dropdown, Search } from "components";
+import { CharacterSearchModel } from "models";
 
 import styles from "./index.module.scss";
 
-interface Props {
-	search: string;
-	setSearch: React.Dispatch<React.SetStateAction<string>>;
-	status: string;
-	setStatus: React.Dispatch<React.SetStateAction<string>>;
-	species: string;
-	setSpecies: React.Dispatch<React.SetStateAction<string>>;
-	gender: string;
-	setGender: React.Dispatch<React.SetStateAction<string>>;
-	characters: CharacterModel[];
-	reset: () => void;
-}
+const Controls = () => {
+	const {
+		suggestions,
+		suggestionsError,
+		suggestionsLoading,
+		setSuggestionsLoading,
+		handleGetSuggestions,
+		newSearch,
+		setNewSearch,
+	} = React.useContext(UserContext);
+	const {
+		search,
+		status,
+		species,
+		gender,
+		setSearch,
+		setStatus,
+		setSpecies,
+		setGender,
+		resetFilters,
+	} = React.useContext(FiltersContext);
 
-const Controls: React.FC<Props> = ({
-	search,
-	setSearch,
-	status,
-	setStatus,
-	species,
-	setSpecies,
-	gender,
-	setGender,
-	characters,
-	reset,
-}) => {
-	const [suggestions, setSuggestions] = React.useState(Array(20).fill({ name: "", image: "" }));
-	const [loading, setLoading] = React.useState(false);
-	const [error, setError] = React.useState("");
-	const [s, setS] = React.useState(search);
+	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setNewSearch(e.target.value);
+	};
 
-	const getCharacterNames = React.useCallback(async () => {
-		if (!s) setSuggestions(characters.map((c: CharacterSearchModel) => ({ name: c.name, image: c.image })));
-		const { suggestions, error } = await getSuggestions(s);
-		setLoading(false);
-		setSuggestions(suggestions);
-		setError(error);
-	}, [s]); // eslint-disable-line react-hooks/exhaustive-deps
+	const handleSearch = (name: string) => {
+		setSearch(name);
+		setNewSearch(name);
+	};
+
 
 	React.useEffect(() => {
-		setLoading(true);
+		if (suggestions.some((s: CharacterSearchModel) => s.name === search)) {
+			return;
+		}
+
+		setSuggestionsLoading(true);
+
 		const timeoutId = setTimeout(() => {
-			getCharacterNames();
+			handleGetSuggestions();
 		}, 500);
 
 		return () => clearTimeout(timeoutId);
-	}, [getCharacterNames]);
+	}, [newSearch]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<section className={styles.controls}>
 			<Search
 				suggestions={suggestions}
 				placeholder="Search a character..."
-				setValue={setSearch}
-				value={search}
-				search={s}
-				setSearch={setS}
-				loading={loading}
-				error={error}
+				value={newSearch}
+				loading={suggestionsLoading}
+				error={suggestionsError}
+				onChange={handleSearchChange}
+				onSearch={handleSearch}
 			/>
 			<Dropdown
 				title="Status..."
@@ -82,8 +80,8 @@ const Controls: React.FC<Props> = ({
 				setValue={setGender}
 				value={gender}
 			/>
-			<Button type="button" onClick={reset}>
-				Reset
+			<Button type="button" onClick={resetFilters}>
+				Reset filters
 			</Button>
 		</section>
 	);
