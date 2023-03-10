@@ -1,7 +1,6 @@
 import * as React from "react";
 import { CharacterModel } from "models";
 import { lazyLoading } from "utils";
-import { HeartOutline, HeartFilled } from "assets/icons";
 import imgError from "assets/images/error.jpg";
 import styles from "./index.module.scss";
 
