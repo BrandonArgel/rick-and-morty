@@ -62,8 +62,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
 	const [suggestionsError, setSuggestionsError] = useState("");
 	const [suggestionsLoading, setSuggestionsLoading] = useState(false);
 	const [favorites, setFavorites] = useLocalStorage("favorite_characters", []);
-	const { page, search, status, species, gender, setPage } = useContext(FiltersContext);
-	const [newSearch, setNewSearch] = useState(search);
+	const { page, search, status, species, gender, setPage, newSearch, setNewSearch } = useContext(FiltersContext);
 
 	const addFavorite = (character: CharacterModel) => {
 		setFavorites([...favorites, character]);
