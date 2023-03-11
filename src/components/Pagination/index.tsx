@@ -1,11 +1,11 @@
 import * as React from "react";
-import { UserContext, FiltersContext } from "context";
+import { useUser, useFilters } from "context";
 import { Button, Input } from "components";
 import styles from "./index.module.scss";
 
 const Pagination = () => {
-	const { info, loading } = React.useContext(UserContext);
-	const { page, setPage } = React.useContext(FiltersContext);
+	const { info, loading } = useUser();
+	const { page, setPage } = useFilters();
 	const [input, setInput] = React.useState(page);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

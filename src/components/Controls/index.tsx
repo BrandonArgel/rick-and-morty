@@ -1,20 +1,11 @@
 import * as React from "react";
-import { FiltersContext, UserContext } from "context";
+import { useFilters, useUser } from "context";
 import { Button, Dropdown, Search } from "components";
-import { CharacterSearchModel } from "models";
 
 import styles from "./index.module.scss";
 
 const Controls = () => {
-	const {
-		suggestions,
-		suggestionsError,
-		suggestionsLoading,
-		setSuggestionsLoading,
-		handleGetSuggestions,
-		newSearch,
-		setNewSearch,
-	} = React.useContext(UserContext);
+	const { suggestions, suggestionsError, suggestionsLoading } = useUser();
 	const {
 		status,
 		species,
@@ -24,7 +15,9 @@ const Controls = () => {
 		setSpecies,
 		setGender,
 		resetFilters,
-	} = React.useContext(FiltersContext);
+		newSearch,
+		setNewSearch,
+	} = useFilters();
 
 	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setNewSearch(e.target.value);
@@ -35,24 +28,10 @@ const Controls = () => {
 		setNewSearch(name);
 	};
 
-	React.useEffect(() => {
-		if (suggestions.some((s: CharacterSearchModel) => s.name === newSearch)) {
-			return;
-		}
-
-		setSuggestionsLoading(true);
-
-		const timeoutId = setTimeout(() => {
-			handleGetSuggestions();
-		}, 500);
-
-		return () => clearTimeout(timeoutId);
-	}, [newSearch]); // eslint-disable-line react-hooks/exhaustive-deps
-
 	return (
 		<section className={styles.controls}>
 			<Search
-				suggestions={suggestions}
+				suggestions={suggestions.map(({ name, image }) => ({ name, image }))}
 				placeholder="Search a character..."
 				value={newSearch}
 				loading={suggestionsLoading}

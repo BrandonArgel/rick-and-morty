@@ -1,5 +1,5 @@
 import * as React from "react";
-import { UserContext } from "context";
+import { useUser } from "context";
 import { CharacterModel } from "models";
 import { lazyLoading } from "utils";
 import imgError from "assets/images/error.jpg";
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const Badge: React.FC<Props> = ({ favorite }) => {
-	const { lastFocus, modal } = React.useContext(UserContext);
+	const { lastFocus, modal } = useUser();
 	const imgRef = React.useRef<HTMLImageElement>(null);
 
 	React.useEffect(() => {

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { UserContext } from "context";
+import { useUser } from "context";
 import { Controls, Favorites, Footer, Hero, Modal, Pagination, Loader } from "components";
 import imgError from "assets/images/error.jpg";
 import styles from "./Home.module.scss";
@@ -8,7 +8,7 @@ const Characters = React.lazy(() => import("components/Characters"));
 const Particles = React.lazy(() => import("components/Particles"));
 
 const Home = () => {
-	const { error, loading } = React.useContext(UserContext);
+	const { error, loading } = useUser();
 
 	return (
 		<main>

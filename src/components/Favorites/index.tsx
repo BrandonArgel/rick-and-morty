@@ -1,12 +1,11 @@
 import * as React from "react";
-import { UserContext } from "context";
+import { useUser } from "context";
 import { Badge } from "components";
 import styles from "./index.module.scss";
 
-
 const Favorites = () => {
 	const sliderRef = React.useRef<HTMLDivElement>(null);
-	const { lastFocus, modal, changeModalCharacter, favorites } = React.useContext(UserContext);
+	const { lastFocus, modal, changeModalCharacter, favorites } = useUser();
 	React.useEffect(() => {
 		if (!modal && lastFocus) {
 			const character = document.getElementById(lastFocus);
@@ -17,6 +16,7 @@ const Favorites = () => {
 	}, [lastFocus, modal]);
 
 	React.useEffect(() => {
+		if (!sliderRef.current) return;
 		const { current: slider } = sliderRef;
 		let isDown = false;
 		let startX = 0;
@@ -47,12 +47,10 @@ const Favorites = () => {
 			slider!.scrollLeft = scrollLeft - walk;
 		};
 
-		if (slider) {
-			slider.addEventListener("mousedown", onMouseDown);
-			slider.addEventListener("mouseleave", onMouseLeave);
-			slider.addEventListener("mouseup", onMouseUp);
-			slider.addEventListener("mousemove", onMouseMove);
-		}
+		slider.addEventListener("mousedown", onMouseDown);
+		slider.addEventListener("mouseleave", onMouseLeave);
+		slider.addEventListener("mouseup", onMouseUp);
+		slider.addEventListener("mousemove", onMouseMove);
 
 		return () => {
 			if (slider) {
@@ -62,7 +60,7 @@ const Favorites = () => {
 				slider.removeEventListener("mousemove", onMouseMove);
 			}
 		};
-	}, []);
+	}, [sliderRef.current]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<div className={styles.favorites} onClick={changeModalCharacter}>

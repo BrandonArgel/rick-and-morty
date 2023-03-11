@@ -1,14 +1,13 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { UserContext } from "context";
+import { useUser } from "context";
 import { Button } from "components";
 import { Close } from "assets/icons";
 import imgError from "assets/images/error.jpg";
 import styles from "./index.module.scss";
 
 const Modal = () => {
-	const { character, setCharacter, modal, setModal, setFavorite, removeFavorite } =
-		React.useContext(UserContext);
+	const { character, setCharacter, modal, setModal, setFavorite, removeFavorite } = useUser();
 	const {
 		id,
 		image,

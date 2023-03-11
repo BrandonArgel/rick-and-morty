@@ -1,2 +1,2 @@
-export { UserContext, UserProvider } from "./userContext"
-export { FiltersContext, FiltersProvider } from "./filtersContext"
+export { useUser, UserProvider } from "./userContext"
+export { useFilters, FiltersProvider } from "./filtersContext"
