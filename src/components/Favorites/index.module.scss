@@ -4,11 +4,13 @@
   width: 100%;
   max-width: variables.$max-width;
   height: fit-content;
+  display: block;
+  margin: 0 auto;
 
   &__container {
     display: grid;
     grid-auto-flow: column;
-    grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
     gap: 0.5rem;
     padding: 1rem;
     overflow: auto;
@@ -27,11 +29,11 @@
   }
 
   &__character {
-    border: none;
+    border: solid 0.5rem variables.$main-color;
     border-radius: 50%;
-    height: 5rem;
+    height: 10rem;
     overflow: hidden;
-    width: 5rem;
+    width: 10rem;
 
     &_image {
       height: 100%;
@@ -41,9 +43,16 @@
   }
 
   &__title {
+    color: variables.$main-color;
+    font-size: variables.$fz-lg;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+  }
+
+  &__empty {
     color: variables.$secondary-text-color;
     font-size: variables.$fz-lg;
-
+    text-align: center;
   }
 
   &__image {

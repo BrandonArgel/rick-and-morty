@@ -75,6 +75,7 @@ const Favorites = () => {
 							id={`favorite-${favorite.id}`}
 							key={favorite.id}
 							className={styles.favorites__character}
+							type="button"
 							data-id={favorite.id}
 							data-image={favorite?.image || imgError}
 							aria-label={`Ver detalles de ${favorite.name}`}
@@ -99,7 +100,7 @@ const Favorites = () => {
 					))}
 				</div>
 			) : (
-				<p className={styles.favorites__title}>No favorites yet</p>
+				<p className={styles.favorites__empty}>No favorites yet.</p>
 			)}
 		</div>
 	);

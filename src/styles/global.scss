@@ -1,5 +1,11 @@
 @import "./variables.scss";
 
+@font-face {
+  font-family: "Get Schwifty";
+  src: url("../assets/fonts/get_schwifty.ttf");
+  font-weight: 400;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
