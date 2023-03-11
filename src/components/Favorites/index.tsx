@@ -1,9 +1,8 @@
 import * as React from "react";
 import { UserContext } from "context";
-import imgError from "assets/images/error.jpg";
+import { Badge } from "components";
 import styles from "./index.module.scss";
 
-const clicked = "favorite";
 
 const Favorites = () => {
 	const sliderRef = React.useRef<HTMLDivElement>(null);
@@ -71,32 +70,7 @@ const Favorites = () => {
 			{favorites.length > 0 ? (
 				<div className={styles.favorites__container} ref={sliderRef}>
 					{favorites.map((favorite, i) => (
-						<button
-							id={`favorite-${favorite.id}`}
-							key={favorite.id}
-							className={styles.favorites__character}
-							type="button"
-							data-id={favorite.id}
-							data-image={favorite?.image || imgError}
-							aria-label={`Ver detalles de ${favorite.name}`}
-							data-location={favorite?.location?.name}
-							data-name={favorite?.name}
-							data-origin-name={favorite?.origin?.name}
-							data-origin-url={favorite?.origin?.url}
-							data-status={favorite?.status}
-							data-species={favorite?.species}
-							data-type={favorite?.type}
-							data-gender={favorite?.gender}
-							data-is-favorite={favorite?.isFavorite}
-							data-clicked-from={clicked}
-						>
-							<img
-								className={styles.favorites__character_image}
-								src={favorite.image}
-								alt={favorite.name}
-								key={i}
-							/>
-						</button>
+						<Badge key={i} favorite={favorite} />
 					))}
 				</div>
 			) : (

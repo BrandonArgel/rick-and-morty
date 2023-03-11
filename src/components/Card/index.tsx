@@ -64,6 +64,7 @@ const Characters: React.FC<Props> = ({ character }) => {
 			data-gender={character?.gender}
 			data-is-favorite={character?.isFavorite}
 			data-clicked-from={clicked}
+			title={`See details of ${character.name}`}
 		>
 			{character?.image &&
 				(character?.isFavorite ? (

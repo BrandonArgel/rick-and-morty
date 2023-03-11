@@ -6,6 +6,11 @@
   display: inline-block;
   padding-right: 0.5rem;
 
+  &:focus-within {
+    outline: 2px dashed variables.$main-color;
+    outline-offset: 3px;
+  }
+
   &__select {
     background: variables.$gradient;
     border: none;
@@ -19,7 +24,8 @@
     width: 100%;
     white-space: nowrap;
 
-    &:active {
+    &:active,
+    &:focus {
       outline: none;
     }
   }

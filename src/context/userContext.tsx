@@ -107,16 +107,15 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
 			species,
 			gender,
 		});
-		if (error) {
-			setError(error);
-			setLoading(false);
-			return;
+		if (results) {
+			const mappedFavoriteCharacters = mapWithFavorites(results);
+			setSuggestions(results.map((c: CharacterSearchModel) => ({ name: c.name, image: c.image })));
+
+			setCharacters(mappedFavoriteCharacters);
+		} else {
+			setCharacters([]);
 		}
-		setSuggestions(results.map((c: CharacterSearchModel) => ({ name: c.name, image: c.image })));
-
-		const mappedFavoriteCharacters = mapWithFavorites(results);
-
-		setCharacters(mappedFavoriteCharacters);
+		setError(error);
 		setInfo(info);
 		setPage(p || 1);
 		setLoading(false);

@@ -53,9 +53,6 @@ const Modal = () => {
 				tabIndex={0}
 			>
 				<div className={styles.modal__content}>
-					<button className={styles.modal__content_close} onClick={handleCloseModal} aria-label="Cerrar modal">
-						<Close />
-					</button>
 					{id && (
 						<>
 							<img src={image || imgError} alt={name} width={200} height={200} />
@@ -91,6 +88,14 @@ const Modal = () => {
 							</div>
 						</>
 					)}
+					<button
+						className={styles.modal__content_close}
+						onClick={handleCloseModal}
+						aria-label="Close modal"
+						title="Close modal"
+					>
+						<Close />
+					</button>
 				</div>
 			</aside>
 		</>,

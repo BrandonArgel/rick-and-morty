@@ -59,11 +59,13 @@
       border: none;
       border-radius: 50%;
       cursor: pointer;
+      height: 2.5rem;
       margin: 1rem 2rem 0 0;
       outline: none;
       position: fixed;
       right: 0;
       top: 0;
+      width: 2.5rem;
 
       &:hover svg,
       &:active svg,
@@ -74,7 +76,13 @@
 
       svg {
         fill: variables.$secondary-text-color;
+        height: 100%;
         transition: fill 0.2s ease-in-out;
+        width: 100%;
+      }
+
+      &:focus {
+        outline: 0.2rem dashed variables.$error;
       }
     }
 

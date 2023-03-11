@@ -28,20 +28,6 @@
     }
   }
 
-  &__character {
-    border: solid 0.5rem variables.$main-color;
-    border-radius: 50%;
-    height: 10rem;
-    overflow: hidden;
-    width: 10rem;
-
-    &_image {
-      height: 100%;
-      pointer-events: none;
-      width: 100%;
-    }
-  }
-
   &__title {
     color: variables.$main-color;
     font-size: variables.$fz-lg;
@@ -53,11 +39,5 @@
     color: variables.$secondary-text-color;
     font-size: variables.$fz-lg;
     text-align: center;
-  }
-
-  &__image {
-    height: 5rem;
-    width: 5rem;
-    pointer-events: none;
   }
 }

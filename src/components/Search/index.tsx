@@ -50,12 +50,17 @@ const Search = ({
 		onChange(e);
 	};
 
+	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		handleOnSearch(value);
+	};
+
 	const handleOnSearch = (name: string) => {
 		setDisplay(false);
 		onSearch(name);
 	};
 
-	const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+	const handleOnKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === "Enter") {
 			handleOnSearch(value);
 		}
@@ -69,30 +74,31 @@ const Search = ({
 	};
 
 	return (
-		<div className={styles.search}>
+		<form className={styles.search} onSubmit={onSubmit}>
 			<input
 				autoComplete="off"
-				type="search"
-				placeholder={placeholder}
-				value={value}
+				className={styles.search__input}
 				onChange={handleChange}
 				onFocus={handleDisplaySuggestions}
 				onClick={handleDisplaySuggestions}
-				onKeyDown={onKeyDown}
+				onKeyDown={handleOnKeyDown}
+				placeholder={placeholder}
+				type="search"
+				value={value}
 			/>
 			{value && (
 				<button
 					title="reset"
 					type="reset"
 					onClick={() => handleOnSearch("")}
-					className={styles.reset}
+					className={styles.search__reset}
 				>
 					<Close />
 				</button>
 			)}
-			<label htmlFor="search" onClick={() => handleOnSearch(value)}>
+			<button title="search" type="submit" tabIndex={0} className={styles.search__button}>
 				<SearchIcon />
-			</label>
+			</button>
 			{display && (
 				<div ref={wrapperRef} className={styles.suggestions} onBlur={onBlurItems}>
 					{loading ? (
@@ -111,7 +117,7 @@ const Search = ({
 					)}
 				</div>
 			)}
-		</div>
+		</form>
 	);
 };
 

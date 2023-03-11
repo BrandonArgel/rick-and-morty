@@ -1,0 +1,53 @@
+@use "styles/variables.scss";
+
+.badge {
+  border: solid 0.5rem variables.$main-color;
+  border-radius: 50%;
+  height: 10rem;
+  overflow: hidden;
+  position: relative;
+  transition: border-color 0.3s ease;
+  width: 10rem;
+  will-change: border-color;
+
+  &:hover,
+  &:focus,
+  &:active {
+    border-color: variables.$secondary-color;
+    outline-color: variables.$secondary-color;
+  }
+
+  &::after {
+    background: hsla(0, 0%, 100%, 0.13);
+    background: linear-gradient(90deg,
+        hsla(0, 0%, 100%, 0.13) 0,
+        hsla(0, 0%, 100%, 0.13) 77%,
+        hsla(0, 0%, 100%, 0.5) 92%,
+        hsla(0, 0%, 100%, 0));
+    content: "";
+    position: absolute;
+    top: -180%;
+    left: -110%;
+    width: 220%;
+    height: 220%;
+    opacity: 0;
+    transform: rotate(45deg);
+    pointer-events: none;
+  }
+
+  &:hover::after {
+    opacity: 1;
+    top: -35%;
+    left: -35%;
+    transition-property: left, top, opacity;
+    transition-duration: 0.7s, 0.7s, 0.15s;
+    transition-timing-function: ease;
+  }
+
+  &__image {
+    aspect-ratio: 1/1;
+    height: auto;
+    pointer-events: none;
+    width: 100%;
+  }
+}
