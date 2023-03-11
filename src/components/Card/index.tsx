@@ -1,16 +1,19 @@
 import * as React from "react";
+import { UserContext } from "context";
 import { CharacterModel } from "models";
 import { lazyLoading } from "utils";
+import { Heart } from "assets/icons";
 import imgError from "assets/images/error.jpg";
 import styles from "./index.module.scss";
 
+const clicked = "character";
+
 interface Props {
 	character: CharacterModel;
-	lastFocus: number;
-	modal: boolean;
 }
 
-const Characters: React.FC<Props> = ({ character, lastFocus, modal }) => {
+const Characters: React.FC<Props> = ({ character }) => {
+	const { lastFocus, modal, setFavorite, removeFavorite } = React.useContext(UserContext);
 	const imgRef = React.useRef<HTMLImageElement>(null);
 
 	React.useEffect(() => {
@@ -20,14 +23,28 @@ const Characters: React.FC<Props> = ({ character, lastFocus, modal }) => {
 	}, [character]);
 
 	React.useEffect(() => {
-		// If the modal is closed, focus on the last focused character
-		if (!modal && lastFocus !== -1) {
-			// Get the character element with the key of the last focused character
-			const character = document.getElementById(`character-${lastFocus}`);
-			// Focus on the character element
-			character!.focus();
+		if (!modal && lastFocus) {
+			const character = document.getElementById(lastFocus);
+			if (character) {
+				character.focus();
+			}
 		}
 	}, [lastFocus, modal]);
+
+	const handleOnClickFavorite = (e: React.SyntheticEvent<EventTarget>) => {
+		e.stopPropagation();
+		e.preventDefault();
+		character.isFavorite ? removeFavorite(character) : setFavorite(character);
+	};
+
+	const handleOnKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+		if (e.key === "Enter" || e.key === " ") {
+			e.stopPropagation();
+			e.preventDefault();
+
+			character.isFavorite ? removeFavorite(character) : setFavorite(character);
+		}
+	};
 
 	return (
 		<button
@@ -45,7 +62,30 @@ const Characters: React.FC<Props> = ({ character, lastFocus, modal }) => {
 			data-species={character?.species}
 			data-type={character?.type}
 			data-gender={character?.gender}
+			data-is-favorite={character?.isFavorite}
+			data-clicked-from={clicked}
 		>
+			{character?.image &&
+				(character?.isFavorite ? (
+					<div
+						title="Remove from favorites"
+						className={styles.favorite}
+						onClick={handleOnClickFavorite}
+						onKeyDown={handleOnKeyDown}
+						tabIndex={0}
+					>
+						<Heart />
+					</div>
+				) : (
+					<div
+						title="Add to favorites"
+						onClick={handleOnClickFavorite}
+						onKeyDown={handleOnKeyDown}
+						tabIndex={0}
+					>
+						<Heart />
+					</div>
+				))}
 			<img
 				className="hide"
 				data-src={character.image}

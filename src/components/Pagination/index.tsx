@@ -1,16 +1,11 @@
 import * as React from "react";
+import { UserContext, FiltersContext } from "context";
 import { Button, Input } from "components";
-import { InfoModel } from "models";
 import styles from "./index.module.scss";
 
-interface Props {
-	loading: boolean;
-	page: number;
-	setPage: (page: number) => void;
-	info: InfoModel;
-}
-
-const Pagination: React.FC<Props> = ({ loading, page, setPage, info }) => {
+const Pagination = () => {
+	const { info, loading } = React.useContext(UserContext);
+	const { page, setPage } = React.useContext(FiltersContext);
 	const [input, setInput] = React.useState(page);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

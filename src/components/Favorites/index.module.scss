@@ -1,0 +1,54 @@
+@use "styles/variables.scss";
+
+.favorites {
+  width: 100%;
+  max-width: variables.$max-width;
+  height: fit-content;
+
+  &__container {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
+    gap: 0.5rem;
+    padding: 1rem;
+    overflow: auto;
+
+    &_active {
+      cursor: grabbing;
+
+      * {
+        cursor: grabbing;
+      }
+    }
+
+    &::-webkit-scrollbar {
+      height: 1rem;
+    }
+  }
+
+  &__character {
+    border: none;
+    border-radius: 50%;
+    height: 5rem;
+    overflow: hidden;
+    width: 5rem;
+
+    &_image {
+      height: 100%;
+      pointer-events: none;
+      width: 100%;
+    }
+  }
+
+  &__title {
+    color: variables.$secondary-text-color;
+    font-size: variables.$fz-lg;
+
+  }
+
+  &__image {
+    height: 5rem;
+    width: 5rem;
+    pointer-events: none;
+  }
+}

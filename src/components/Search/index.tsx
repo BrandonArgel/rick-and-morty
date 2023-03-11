@@ -61,6 +61,13 @@ const Search = ({
 		}
 	};
 
+	const onBlurItems = (e: React.FocusEvent<HTMLDivElement>) => {
+		const { current: wrap } = wrapperRef;
+		if (wrap && !wrap.contains(e.relatedTarget as Node)) {
+			setDisplay(false);
+		}
+	};
+
 	return (
 		<div className={styles.search}>
 			<input
@@ -74,7 +81,12 @@ const Search = ({
 				onKeyDown={onKeyDown}
 			/>
 			{value && (
-				<button type="reset" onClick={() => handleOnSearch("")} className={styles.reset}>
+				<button
+					title="reset"
+					type="reset"
+					onClick={() => handleOnSearch("")}
+					className={styles.reset}
+				>
 					<Close />
 				</button>
 			)}
@@ -82,16 +94,14 @@ const Search = ({
 				<SearchIcon />
 			</label>
 			{display && (
-				<div ref={wrapperRef} className={styles.suggestions}>
+				<div ref={wrapperRef} className={styles.suggestions} onBlur={onBlurItems}>
 					{loading ? (
 						<Loader />
 					) : error ? (
 						<p className={styles.error}>{error}</p>
 					) : (
 						suggestions
-							.filter(({ name }) => {
-								return name.toLowerCase().includes(value.toLowerCase());
-							})
+							.filter(({ name }) => name.toLowerCase().includes(value.toLowerCase()))
 							.map(({ name, image }, i) => (
 								<button key={i} onClick={() => handleOnSearch(name)}>
 									<p>{name}</p>

@@ -1,34 +1,13 @@
 import * as React from "react";
+import { UserContext } from "context";
 import { Card } from "components";
-import { CharacterModel } from "models";
 import styles from "./index.module.scss";
 
-interface CharactersProps {
-	characters: CharacterModel[];
-	changeModalCharacter: (e: React.SyntheticEvent<EventTarget>) => void;
-	lastFocus: number;
-	modal: boolean;
-	loading?: boolean;
-}
-
-const Characters: React.FC<CharactersProps> = ({
-	characters,
-	changeModalCharacter,
-	lastFocus,
-	modal,
-	loading
-}) => {
+const Characters = () => {
+	const { characters, changeModalCharacter } = React.useContext(UserContext);
 	return (
 		<section id="characters" className={styles.characters} onClick={changeModalCharacter}>
-			{characters &&
-				characters.map((character, i) => (
-					<Card
-						character={character}
-						lastFocus={lastFocus}
-						modal={modal}
-						key={i}
-					/>
-				))}
+			{characters && characters.map((character, i) => <Card character={character} key={i} />)}
 		</section>
 	);
 };

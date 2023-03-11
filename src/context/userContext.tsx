@@ -26,11 +26,12 @@ const UserContext = createContext({
 	setFavorite: (v: CharacterModel) => {},
 	removeFavorite: (v: CharacterModel) => {},
 	character: baseCharacter as CharacterModel,
+	setCharacter: (v: CharacterModel) => {},
 	characters: [] as CharacterModel[],
 	info: {} as InfoModel,
 	error: "",
 	loading: false,
-	lastFocus: -1,
+	lastFocus: "",
 	modal: false,
 	setModal: (v: boolean) => {},
 	changeModalCharacter: (e: React.SyntheticEvent<EventTarget>) => {},
@@ -50,7 +51,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [modal, setModal] = useState(false);
-	const [lastFocus, setLastFocus] = useState(0);
+	const [lastFocus, setLastFocus] = useState("");
 	const [suggestions, setSuggestions] = useState(
 		Array(20).fill({ name: "", image: "" }) as CharacterSearchModel[]
 	);
@@ -61,17 +62,43 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
 		useContext(FiltersContext);
 
 	const addFavorite = (character: CharacterModel) => {
-		setFavorites([...favorites, character]);
+		const fav = {
+			...character,
+			isFavorite: true,
+		};
+		setFavorites([...favorites, fav]);
+		const newCharacters = characters.map((c: CharacterModel) => {
+			if (c.id === character.id) {
+				c.isFavorite = true;
+			}
+			return c;
+		});
+		setCharacters(newCharacters);
 	};
 
 	const removeFavorite = (character: CharacterModel) => {
-		setFavorites(favorites.filter((favorite: CharacterModel) => favorite.id !== character.id));
+		const newFavorites = favorites.filter((c: CharacterModel) => c.id !== character.id);
+		setFavorites(newFavorites);
+		const newCharacters = characters.map((c: CharacterModel) => {
+			if (c.id === character.id) {
+				c.isFavorite = false;
+			}
+			return c;
+		});
+		setCharacters(newCharacters);
+	};
+
+	const mapWithFavorites = (characters: CharacterModel[]): CharacterModel[] => {
+		return characters.map((character: CharacterModel) => {
+			const isFavorite = favorites.some((favorite: CharacterModel) => favorite.id === character.id);
+			return { ...character, isFavorite };
+		});
 	};
 
 	const handleGetCharacters = async () => {
 		setCharacters(Array(20).fill(baseCharacter as CharacterModel));
 		setLoading(true);
-		setLastFocus(-1);
+		setLastFocus("");
 
 		const { info, results, error, p } = await getCharacters({
 			page,
@@ -82,11 +109,14 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
 		});
 		if (error) {
 			setError(error);
+			setLoading(false);
 			return;
 		}
 		setSuggestions(results.map((c: CharacterSearchModel) => ({ name: c.name, image: c.image })));
 
-		setCharacters(results);
+		const mappedFavoriteCharacters = mapWithFavorites(results);
+
+		setCharacters(mappedFavoriteCharacters);
 		setInfo(info);
 		setPage(p || 1);
 		setLoading(false);
@@ -119,9 +149,21 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
 		if (!(e.target instanceof HTMLButtonElement)) {
 			return;
 		}
-		const { id, image, location, name, originName, originUrl, status, species, gender, type } =
-			e.target.dataset;
-		setLastFocus(Number(id));
+		const {
+			id,
+			image,
+			location,
+			name,
+			originName,
+			originUrl,
+			status,
+			species,
+			gender,
+			type,
+			isFavorite,
+			clickedFrom,
+		} = e.target.dataset;
+		setLastFocus(`${clickedFrom}-${id}`);
 		const c: CharacterModel = {
 			id: Number(id),
 			image: image || "",
@@ -134,6 +176,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
 			species: species || "",
 			gender: gender || "",
 			type: type || "",
+			isFavorite: isFavorite === "true",
 		};
 		setCharacter(c);
 		if (!originUrl) {
@@ -151,6 +194,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
 				setFavorite: addFavorite,
 				removeFavorite: removeFavorite,
 				character: character,
+				setCharacter: setCharacter,
 				characters: characters,
 				info: info,
 				error: error,

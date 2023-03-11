@@ -1,77 +1,97 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { UserContext } from "context";
+import { Button } from "components";
 import { Close } from "assets/icons";
-import { CharacterModel } from "models";
 import imgError from "assets/images/error.jpg";
 import styles from "./index.module.scss";
 
-interface Props {
-	character: CharacterModel;
-	open: boolean;
-	close: () => void;
-}
-
-const Modal = ({
-	character: { id, image, name, status, species, type, gender, location, dimension, originName },
-	open,
-	close,
-}: Props) => {
+const Modal = () => {
+	const { character, setCharacter, modal, setModal, setFavorite, removeFavorite } =
+		React.useContext(UserContext);
+	const {
+		id,
+		image,
+		name,
+		status,
+		species,
+		type,
+		gender,
+		location,
+		dimension,
+		originName,
+		isFavorite,
+	} = character;
 	const asideRef = React.useRef<HTMLButtonElement>(null);
 
 	React.useEffect(() => {
-		if (open) setTimeout(() => asideRef.current?.focus(), 100);
-	}, [open]);
+		if (modal) setTimeout(() => asideRef.current?.focus(), 100);
+	}, [modal]);
+
+	const handleCloseModal = () => {
+		setModal(false);
+	};
+
+	const handleOnClickFavorite = () => {
+		setCharacter({ ...character, isFavorite: !isFavorite });
+		isFavorite ? removeFavorite(character) : setFavorite(character);
+	};
 
 	return ReactDOM.createPortal(
 		<>
 			<button
-				className={`${styles.overlay} ${open ? styles.visible : ""}`}
-				onClick={() => close()}
-				aria-hidden={!open}
+				className={`${styles.overlay} ${modal ? styles.visible : ""}`}
+				onClick={handleCloseModal}
+				aria-hidden={!modal}
 				tabIndex={-1}
 				type="button"
 			/>
 			<aside
 				ref={asideRef}
-				className={`${styles.modal} ${open ? styles.open : ""}`}
-				aria-hidden={!open}
+				className={`${styles.modal} ${modal ? styles.open : ""}`}
+				aria-hidden={!modal}
 				tabIndex={0}
 			>
-				<button className={styles.close} onClick={() => close()} aria-label="Cerrar modal">
-					<Close />
-				</button>
-				{id && (
-					<>
-						<img src={image || imgError} alt={name} width={200} height={200} />
-						<div>
-							<h2>{name}</h2>
-							<p>
-								<strong>Status:</strong> {status}{" "}
-								<span>{status === "Alive" ? "🟢" : status === "Dead" ? "🔴" : "⚪"}</span>
-							</p>
-							<p>
-								<strong>Gender:</strong> {gender}
-							</p>
-							<p>
-								<strong>Species:</strong> {species}
-							</p>
-							{type && (
+				<div className={styles.modal__content}>
+					<button className={styles.modal__content_close} onClick={handleCloseModal} aria-label="Cerrar modal">
+						<Close />
+					</button>
+					{id && (
+						<>
+							<img src={image || imgError} alt={name} width={200} height={200} />
+							<div>
+								<h2>{name}</h2>
 								<p>
-									<strong>Type:</strong> {type}
+									<strong>Status:</strong> {status}{" "}
+									<span>{status === "Alive" ? "🟢" : status === "Dead" ? "🔴" : "⚪"}</span>
 								</p>
-							)}
-							<p>
-								<strong>Location:</strong> {location?.name}
-							</p>
-							<p>
-								<strong>Origin:</strong> {originName}
-							</p>
-							<p>
-								<strong>Dimension:</strong> {dimension}
-							</p>
-						</div>
-					</>
-				)}
+								<p>
+									<strong>Gender:</strong> {gender}
+								</p>
+								<p>
+									<strong>Species:</strong> {species}
+								</p>
+								{type && (
+									<p>
+										<strong>Type:</strong> {type}
+									</p>
+								)}
+								<p>
+									<strong>Location:</strong> {location?.name}
+								</p>
+								<p>
+									<strong>Origin:</strong> {originName}
+								</p>
+								<p>
+									<strong>Dimension:</strong> {dimension}
+								</p>
+								<Button type="button" onClick={handleOnClickFavorite}>
+									{isFavorite ? "Remove from favorites" : "Add to favorites"}
+								</Button>
+							</div>
+						</>
+					)}
+				</div>
 			</aside>
 		</>,
 		document.getElementById("modal") as HTMLDivElement

@@ -4,7 +4,6 @@
 .character {
   border: none;
   border-radius: 1rem;
-  cursor: pointer;
   display: flex;
   justify-content: center;
   position: relative;
@@ -25,6 +24,7 @@
     height: 220%;
     opacity: 0;
     transform: rotate(45deg);
+    pointer-events: none;
   }
 
   &:hover::after {
@@ -34,5 +34,64 @@
     transition-property: left, top, opacity;
     transition-duration: 0.7s, 0.7s, 0.15s;
     transition-timing-function: ease;
+  }
+
+  div {
+    position: absolute;
+    background-color: rgba(variables.$bg-color, 0.5);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    right: 0;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &.favorite {
+      svg {
+        fill: variables.$main-color;
+        filter: brightness(1);
+      }
+    }
+
+    svg {
+      fill: variables.$secondary-text-color;
+      filter: brightness(0.8);
+      height: variables.$fz-lg;
+      width: variables.$fz-lg;
+      transition: all 0.2s ease-in-out;
+      will-change: transform filter fill;
+    }
+
+    &:hover,
+    &:focus {
+      &:not(.favorite) {
+        svg {
+          fill: variables.$main-color;
+          filter: brightness(0.75);
+        }
+      }
+
+      svg {
+        transform: scale(1.2);
+      }
+    }
+
+    &:active {
+      transform: scale(0.8);
+
+      svg {
+        filter: brightness(1.2);
+      }
+    }
+
+    &:focus {
+      outline: none;
+    }
   }
 }

@@ -21,6 +21,8 @@ export interface CharacterModel {
   type: string;
   dimension?: string;
   originName?: string;
+  isFavorite?: boolean;
+  clickedFrom?: string;
 }
 
 export interface CharacterSearchModel {

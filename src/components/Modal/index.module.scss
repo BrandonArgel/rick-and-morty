@@ -1,132 +1,143 @@
 @use "styles/variables.scss";
 
 .overlay {
-	align-items: center;
-	background-color: rgba(0, 0, 0, 0.5);
-	border: none;
-	display: flex;
-	height: 100vh;
-	left: 0;
-	opacity: 0;
-	padding: 0 2rem;
-	pointer-events: none;
-	position: fixed;
-	transition: all 0.3s ease-in-out;
-	top: 0;
-	width: 100vw;
-	will-change: opacity, pointer-events;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  display: flex;
+  height: 100vh;
+  left: 0;
+  opacity: 0;
+  padding: 0 2rem;
+  pointer-events: none;
+  position: fixed;
+  transition: all 0.3s ease-in-out;
+  top: 0;
+  width: 100vw;
+  will-change: opacity, pointer-events;
 
-	&.visible {
-		opacity: 1;
-		pointer-events: all;
-	}
+  &.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
 }
 
 .modal {
-	background: variables.$gradient;
-	border-radius: 1rem;
-	box-shadow: #000000 0px 7px 29px 0px;
-	display: grid;
-	grid-template-columns: repeat(12, 1fr);
-	gap: 1rem;
-	left: 50%;
-	margin: 0 auto;
-	max-width: 30rem;
-	min-height: 25rem;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	transform: translate(-50%, -100%) scale(0);
-	transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-	top: 50%;
-	visibility: hidden;
-	width: 100%;
-	will-change: transform, opacity, visibility;
-	z-index: 1;
+  background: variables.$gradient;
+  border-radius: 1rem;
+  box-shadow: #000000 0px 7px 29px 0px;
+  left: 50%;
+  min-height: 25rem;
+  max-height: 80vh;
+  max-width: 30rem;
+  opacity: 0;
+  position: absolute;
+  transform: translate(-50%, -100%) scale(0);
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  top: 50%;
+  visibility: hidden;
+  width: 100%;
+  will-change: transform, opacity, visibility;
+  z-index: 1;
 
-	&.open {
-		opacity: 1;
-		transform: translate(-50%, -50%) scale(1);
-		visibility: visible;
-	}
+  &.open {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    visibility: visible;
+  }
 
-	.close {
-		background: none;
-		border: none;
-		border-radius: 50%;
-		cursor: pointer;
-		margin: 1rem 1rem 0 0;
-		outline: none;
-		padding: 0;
-		position: absolute;
-		right: 0;
-		top: 0;
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1rem;
+    position: relative;
+    overflow-y: auto;
+    max-height: 80vh;
 
-		&:hover svg,
-		&:active svg,
-		&:focus svg {
-			fill: variables.$error;
-			transition: fill 0.1s ease-in-out;
-		}
+    &_close {
+      background: none;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      margin: 1rem 2rem 0 0;
+      outline: none;
+      position: fixed;
+      right: 0;
+      top: 0;
 
-		svg {
-			fill: variables.$secondary-text-color;
-			transition: fill 0.2s ease-in-out;
-		}
-	}
+      &:hover svg,
+      &:active svg,
+      &:focus svg {
+        fill: variables.$error;
+        transition: fill 0.1s ease-in-out;
+      }
 
-	img {
-		aspect-ratio: 1 / 1;
-		border-radius: 0.5rem;
-		grid-column: 1 / -1;
-		height: 100%;
-		object-fit: cover;
-		width: 100%;
-	}
+      svg {
+        fill: variables.$secondary-text-color;
+        transition: fill 0.2s ease-in-out;
+      }
+    }
 
-	div {
-		grid-column: 1 / -1;
-		padding: 2rem;
+    img {
+      aspect-ratio: 1 / 1;
+      border-radius: 0 0 1rem 1rem;
+      grid-column: 1 / -1;
+      height: 100%;
+      object-fit: cover;
+      width: 100%;
+    }
 
-		h2 {
-			color: variables.$main-color;
-			font: bold 2.4rem variables.$font;
-			margin-bottom: 1rem;
-			text-align: center;
-		}
+    div {
+      display: flex;
+      flex-direction: column;
+      grid-column: 1 / -1;
+      padding: 2rem;
 
-		p {
-			color: variables.$secondary-text-color;
-			font: normal variables.$fz-md variables.$font;
-			margin-bottom: 0.5rem;
-			text-align: center;
+      h2 {
+        color: variables.$main-color;
+        font: bold 2.4rem variables.$font;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
 
-			strong {
-				color: variables.$secondary-color;
-			}
+      p {
+        color: variables.$secondary-text-color;
+        font: normal variables.$fz-md variables.$font;
+        margin-bottom: 0.5rem;
+        text-align: center;
 
-			span {
-				height: 100%;
-				width: 100%;
-			}
-		}
-	}
+        strong {
+          color: variables.$secondary-color;
+        }
+
+        span {
+          height: 100%;
+          width: 100%;
+        }
+      }
+
+      button {
+        margin: 2rem auto 0;
+      }
+    }
+  }
 }
 
 @media screen and (min-width: 600px) {
-	.modal {
-		align-items: center;
-		max-width: 60rem;
+  .modal {
+    align-items: center;
+    max-width: 60rem;
 
-		img {
-			filter: brightness(0.9);
-			grid-area: 1 / 1 / 1 / 6;
-			opacity: initial;
-		}
+    img {
+      border-radius: 1rem;
+      filter: brightness(0.9);
+      grid-area: 1 / 1 / 1 / 6;
+      opacity: initial;
+    }
 
-		div {
-			grid-area: 1 / 6 / 1 / -1;
-			padding: 2rem 1rem;
-		}
-	}
+    &__content div {
+      grid-area: 1 / 6 / 1 / -1;
+      padding: 2rem 1rem;
+    }
+  }
 }
