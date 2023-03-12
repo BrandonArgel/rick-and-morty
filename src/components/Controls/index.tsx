@@ -15,16 +15,8 @@ const Controls = () => {
 		newSearch,
 		setNewSearch,
 	} = React.useContext(UserContext);
-	const {
-		status,
-		species,
-		gender,
-		setSearch,
-		setStatus,
-		setSpecies,
-		setGender,
-		resetFilters,
-	} = React.useContext(FiltersContext);
+	const { status, search, species, gender, setSearch, setStatus, setSpecies, setGender, resetFilters } =
+		React.useContext(FiltersContext);
 
 	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setNewSearch(e.target.value);
@@ -78,7 +70,11 @@ const Controls = () => {
 				setValue={setGender}
 				value={gender}
 			/>
-			<Button type="button" onClick={resetFilters}>
+			<Button
+				type="button"
+				onClick={resetFilters}
+				disabled={!status && !search && !species && !gender}
+			>
 				Reset filters
 			</Button>
 		</section>
