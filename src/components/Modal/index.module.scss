@@ -58,6 +58,7 @@
       background: none;
       border: none;
       border-radius: 50%;
+      box-shadow: 0 0 0.2rem 0 rgba(variables.$bg-color, 0.3);
       cursor: pointer;
       height: 2.5rem;
       margin: 1rem 2rem 0 0;
@@ -89,10 +90,16 @@
     img {
       aspect-ratio: 1 / 1;
       border-radius: 0 0 1rem 1rem;
+      filter: brightness(0.9);
       grid-column: 1 / -1;
       height: 100%;
       object-fit: cover;
+      transition: filter 0.2s ease-in-out;
       width: 100%;
+
+      &:hover {
+        filter: brightness(1);
+      }
     }
 
     div {
@@ -140,7 +147,6 @@
 
     img {
       border-radius: 1rem;
-      filter: brightness(0.9);
       grid-area: 1 / 1 / 1 / 6;
       opacity: initial;
     }
