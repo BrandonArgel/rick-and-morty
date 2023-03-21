@@ -3,7 +3,6 @@ import { UserContext } from "context";
 import { Badge } from "components";
 import styles from "./index.module.scss";
 
-
 const Favorites = () => {
 	const sliderRef = React.useRef<HTMLDivElement>(null);
 	const { lastFocus, modal, changeModalCharacter, favorites } = React.useContext(UserContext);

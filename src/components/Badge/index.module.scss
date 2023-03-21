@@ -9,6 +9,7 @@
   transition: border-color 0.3s ease;
   width: 10rem;
   will-change: border-color;
+  z-index: 1;
 
   &:hover,
   &:focus,
