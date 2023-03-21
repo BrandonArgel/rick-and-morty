@@ -10,7 +10,7 @@
   &__container {
     display: grid;
     grid-auto-flow: column;
-    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+    grid-template-columns: repeat(auto-fill, 10rem);
     gap: 0.5rem;
     padding: 1rem;
     overflow: auto;
