@@ -117,7 +117,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
 		}
 		setError(error);
 		setInfo(info);
-		setPage(p || 1);
+		setPage(p ?? 1);
 		setLoading(false);
 	};
 
@@ -165,16 +165,16 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
 		setLastFocus(`${clickedFrom}-${id}`);
 		const c: CharacterModel = {
 			id: Number(id),
-			image: image || "",
+			image: image ?? "",
 			location: {
-				name: location || "",
+				name: location ?? "",
 			},
-			name: name || "",
-			originName: originName || "",
-			status: status || "",
-			species: species || "",
-			gender: gender || "",
-			type: type || "",
+			name: name ?? "",
+			originName: originName ?? "",
+			status: status ?? "",
+			species: species ?? "",
+			gender: gender ?? "",
+			type: type ?? "",
 			isFavorite: isFavorite === "true",
 		};
 		setCharacter(c);

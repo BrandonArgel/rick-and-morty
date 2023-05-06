@@ -52,11 +52,9 @@
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 
-    &.favorite {
-      svg {
-        fill: variables.$main-color;
-        filter: brightness(1);
-      }
+    &.favorite svg {
+      fill: variables.$main-color;
+      filter: brightness(1);
     }
 
     svg {

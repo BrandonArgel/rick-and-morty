@@ -9,6 +9,11 @@ const Pagination = () => {
 	const [input, setInput] = React.useState(page);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (!e.target.value) return;
+		if (Number(e.target.value) > info?.pages) {
+			setInput(info?.pages ?? 1);
+			return;
+		}
 		setInput(Number(e.target.value));
 	};
 
@@ -32,6 +37,10 @@ const Pagination = () => {
 		setInput(page + 1);
 	};
 
+	React.useEffect(() => {
+		setInput(page);
+	}, [page]);
+
 	return (
 		<div className={styles.pagination}>
 			<Button type="button" onClick={handlePrev} disabled={!info?.prev || loading}>
@@ -45,9 +54,10 @@ const Pagination = () => {
 					onChange={handleChange}
 					onKeyDown={handleKeyDown}
 					onBlur={handleOnBlur}
-					max={info?.pages || 1}
+					max={info?.pages ?? 1}
+					min={1}
 				/>{" "}
-				/ {info?.pages || 0}
+				/ {info?.pages ?? 0}
 			</span>
 			<Button type="button" onClick={handleNext} disabled={!info?.next || loading}>
 				Next

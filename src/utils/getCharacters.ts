@@ -19,7 +19,7 @@ interface getCharactersInterface {
 
 export const getCharacters = async ({ search, page = 1, status, species, gender }: Props): Promise<getCharactersInterface> => {
   const query = `page=${page}&name=${search}&status=${status}&species=${species}&gender=${gender}`
-  const { info, results, error } = await fetch(`${API}?${query}`).then(res => res.json()).catch((e) => console.error(`Back to page 1: ${e}`))
+  const { info, results, error } = await fetch(`${API}?${query}`).then(res => res.json()).catch((e) => console.log(`Back to page 1: ${e}`))
   return { info: info, results: results, error: error, p: error ? 1 : page }
 }
 
